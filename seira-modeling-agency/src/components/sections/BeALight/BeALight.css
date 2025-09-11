@@ -1,0 +1,236 @@
+/* Be A Light Section Styles */
+
+.be-a-light {
+  position: relative;
+  min-height: 100vh;
+  background-color: hsl(0, 0%, 3.9%);
+  
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  padding: 5rem 0;
+}
+
+.be-a-light__container {
+  position: relative;
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0 1rem;
+  text-align: center;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+@media (min-width: 640px) {
+  .be-a-light__container {
+    padding: 0 1.5rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .be-a-light__container {
+    padding: 0 2rem;
+  }
+}
+
+/* Spotlight */
+.be-a-light__spotlight {
+  position: absolute;
+  top: -10%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100%;
+  max-width: 800px;
+  height: auto;
+  z-index: 2;
+  transition: all 0.3s ease-out;
+  pointer-events: none;
+}
+
+.be-a-light__spotlight-image {
+  width: 100%;
+  height: auto;
+  object-fit: contain;
+  mix-blend-mode: screen;
+  filter: brightness(1.2) contrast(1.1);
+}
+
+/* Text Container */
+.be-a-light__text-container {
+  position: relative;
+  z-index: 5;
+  transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.be-a-light__title {
+  font-family: 'Baskervville', serif;
+  font-size: clamp(4rem, 12vw, 8rem);
+  font-weight: 900;
+  line-height: 0.9;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  letter-spacing: -0.02em;
+}
+
+@media (min-width: 768px) {
+  .be-a-light__title {
+    flex-direction: row;
+    gap: 1.5rem;
+  }
+}
+
+.be-a-light__title-word {
+  position: relative;
+  display: inline-block;
+  color: white;
+  transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+  text-shadow: 0 0 30px rgba(255, 255, 255, 0.3);
+}
+
+.be-a-light__title-word--accent {
+  color: white;
+  
+}
+
+
+@keyframes rayPulse {
+  0%, 100% {
+    opacity: 0.3;
+    transform: translate(-50%, -100%) rotate(var(--ray-rotation, 0deg)) scaleY(0.8);
+  }
+  100% {
+    opacity: 0.8;
+    transform: translate(-50%, -100%) rotate(var(--ray-rotation, 0deg)) scaleY(1.2);
+  }
+}
+
+/* Particles */
+.be-a-light__particles {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 3;
+  pointer-events: none;
+}
+
+.be-a-light__particle {
+  position: absolute;
+  width: 4px;
+  height: 4px;
+  background: radial-gradient(circle, white 0%, transparent 70%);
+  border-radius: 50%;
+  left: var(--particle-x, 50%);
+  top: var(--particle-y, 50%);
+  animation: particleFloat 4s ease-in-out infinite;
+  animation-delay: var(--particle-delay, 0s);
+}
+
+@keyframes particleFloat {
+  0%, 100% {
+    transform: translateY(0) scale(0.8);
+    opacity: 0.4;
+  }
+  25% {
+    transform: translateY(-20px) scale(1);
+    opacity: 0.8;
+  }
+  50% {
+    transform: translateY(-10px) scale(1.1);
+    opacity: 1;
+  }
+  75% {
+    transform: translateY(-15px) scale(0.9);
+    opacity: 0.6;
+  }
+}
+
+/* Visibility States */
+.be-a-light--visible .be-a-light__title-word {
+  animation: textGlow 2s ease-in-out infinite alternate;
+}
+
+.be-a-light--visible .be-a-light__title-word--accent {
+  animation: textGlow 2s ease-in-out infinite alternate;
+}
+
+@keyframes textGlow {
+  0% {
+    text-shadow: 0 0 30px rgba(255, 255, 255, 0.4);
+  }
+  100% {
+    text-shadow: 0 0 50px rgba(255, 255, 255, 0.8), 0 0 70px rgba(255, 255, 255, 0.4);
+  }
+}
+
+/* Light Overlay Effect */
+.be-a-light::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(
+    ellipse at center top,
+    rgba(255, 255, 255, 0.1) 0%,
+    rgba(255, 255, 255, 0.05) 30%,
+    transparent 60%
+  );
+  z-index: 4;
+  pointer-events: none;
+}
+
+/* Security: Prevent content injection */
+.be-a-light * {
+  max-width: 100%;
+  word-wrap: break-word;
+}
+
+/* Accessibility improvements */
+@media (prefers-reduced-motion: reduce) {
+  .be-a-light__ray,
+  .be-a-light__particle,
+  .be-a-light__title-word {
+    animation: none;
+  }
+
+  .be-a-light__spotlight,
+  .be-a-light__text-container,
+  .be-a-light__rays {
+    transition: none;
+  }
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+  .be-a-light__title-word,
+  .be-a-light__title-word--accent {
+    color: white;
+    text-shadow: none;
+  }
+}
+
+/* Performance optimizations */
+.be-a-light {
+  contain: layout style;
+  will-change: scroll-position;
+}
+
+.be-a-light__spotlight,
+.be-a-light__text-container,
+.be-a-light__rays {
+  will-change: transform, opacity;
+}
+
+.be-a-light__title-word {
+  will-change: text-shadow;
+}
