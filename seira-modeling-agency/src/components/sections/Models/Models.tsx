@@ -17,45 +17,21 @@ const ModelsSection: React.FC<ModelsProps> = ({ className = "" }) => {
   const models: Model[] = [
     {
       id: "1",
-      name: "Erick Jaegar",
-      categories: ["Fashion", "Travel", "Executive Business"],
-      image: "https://ext.same-assets.com/1679466695/3997942304.jpeg"
+      name: "Michael",
+      categories: ["Fashion", "Travel"],
+      image: "/Michael.png"
     },
     {
       id: "2",
-      name: "Marc Kalega Zayn",
-      categories: ["Fashion", "Beauty", "Travel"],
-      image: "https://ext.same-assets.com/1679466695/1482852206.jpeg"
+      name: "Nisani",
+      categories: ["Beauty", "Executive Business"],
+      image: "/Nisani.png"
     },
     {
       id: "3",
-      name: "Vivian Dorman",
-      categories: ["Travel", "Executive Business"],
-      image: "https://ext.same-assets.com/1679466695/2438349505.png"
-    },
-    {
-      id: "4",
-      name: "Amelia Putri",
-      categories: ["Travel", "Fashion", "Executive Business"],
-      image: "https://ext.same-assets.com/1679466695/2551523937.jpeg"
-    },
-    {
-      id: "5",
-      name: "Bella Norway",
-      categories: ["Executive Business", "Travel", "Beauty"],
-      image: "https://ext.same-assets.com/1679466695/2585686575.jpeg"
-    },
-    {
-      id: "6",
-      name: "Salisa Fergucio",
-      categories: ["Executive Business", "Travel"],
-      image: "https://ext.same-assets.com/1679466695/3381550190.jpeg"
-    },
-    {
-      id: "7",
-      name: "Nicky Gracia",
-      categories: ["Travel", "Fashion", "Beauty"],
-      image: "https://ext.same-assets.com/1679466695/3092641256.png"
+      name: "Zahra",
+      categories: ["Travel", "Fashion"],
+      image: "/Zahra.png"
     }
   ];
 
