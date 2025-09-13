@@ -158,7 +158,7 @@ export default function HomePage(): JSX.Element {
 
       <Team />
 
-      <TestimonialsSection />
+      {/* <TestimonialsSection /> */}
 
       <FAQSection />
 
