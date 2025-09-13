@@ -1,1 +1,226 @@
+/* FAQ Section Styles */
 
+.faq {
+  padding: 5rem 0;
+  background-color: hsl(0, 0%, 3.9%);
+}
+
+.faq__container {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0 1rem;
+}
+
+@media (min-width: 640px) {
+  .faq__container {
+    padding: 0 1.5rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .faq__container {
+    padding: 0 2rem;
+  }
+}
+
+/* Header */
+.faq__header {
+  margin-bottom: 4rem;
+}
+
+.faq__subtitle {
+  font-size: 0.875rem;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.6);
+  margin-bottom: 1rem;
+  font-family: 'Inter', sans-serif;
+}
+
+.faq__title {
+  font-family: 'Baskervville', serif;
+  font-size: clamp(2.5rem, 6vw, 3.5rem);
+  font-weight: 700;
+  color: white;
+  line-height: 1.2;
+  margin: 0;
+}
+
+.faq__title-accent {
+  font-style: italic;
+  color: rgba(255, 255, 255, 0.9);
+}
+
+/* Content */
+.faq__content {
+  max-width: 48rem;
+}
+
+.faq__accordion {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.faq__item {
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 16px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  padding: 0 1.5rem;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+}
+
+.faq__item:hover {
+  background: rgba(255, 255, 255, 0.08);
+  border-color: rgba(255, 255, 255, 0.2);
+}
+
+.faq__item[data-state="open"] {
+  background: rgba(255, 255, 255, 0.08);
+  border-color: rgba(59, 73, 204, 0.3);
+}
+
+.faq__trigger {
+  color: white;
+  font-weight: 500;
+  font-size: 1.125rem;
+  line-height: 1.5;
+  text-align: left;
+  padding: 1.5rem 0;
+  border: none;
+  background: none;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  cursor: pointer;
+  transition: color 0.3s ease;
+}
+
+.faq__trigger:hover {
+  color: hsl(229, 84%, 56%);
+}
+
+.faq__trigger:focus {
+  outline: 2px solid hsl(229, 84%, 56%);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+.faq__trigger[data-state="open"] {
+  color: hsl(229, 84%, 56%);
+}
+
+/* Override default accordion styles */
+.faq__trigger > svg {
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  color: rgba(255, 255, 255, 0.6);
+  width: 1.25rem;
+  height: 1.25rem;
+}
+
+.faq__trigger:hover > svg {
+  color: hsl(229, 84%, 56%);
+}
+
+.faq__trigger[data-state="open"] > svg {
+  transform: rotate(180deg);
+  color: hsl(229, 84%, 56%);
+}
+
+.faq__content-text {
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 1rem;
+  line-height: 1.7;
+  padding-bottom: 1.5rem;
+  padding-top: 0;
+}
+
+/* Animation for accordion content */
+.faq__item[data-state="open"] .faq__content-text {
+  animation: slideDown 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.faq__item[data-state="closed"] .faq__content-text {
+  animation: slideUp 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  to {
+    opacity: 0;
+    transform: translateY(-8px);
+  }
+}
+
+/* Security: Prevent content injection */
+.faq * {
+  max-width: 100%;
+  word-wrap: break-word;
+}
+
+/* Accessibility improvements */
+@media (prefers-reduced-motion: reduce) {
+  .faq__item,
+  .faq__trigger,
+  .faq__trigger > svg {
+    transition: none;
+  }
+
+  .faq__item[data-state="open"] .faq__content-text,
+  .faq__item[data-state="closed"] .faq__content-text {
+    animation: none;
+  }
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+  .faq__item {
+    border-color: white;
+    background: rgba(0, 0, 0, 0.8);
+  }
+
+  .faq__trigger {
+    color: white;
+  }
+
+  .faq__trigger:hover,
+  .faq__trigger[data-state="open"] {
+    color: white;
+    background: rgba(255, 255, 255, 0.1);
+  }
+}
+
+/* Focus management for keyboard navigation */
+.faq__item:focus-within {
+  outline: 2px solid hsl(229, 84%, 56%);
+  outline-offset: 2px;
+}
+
+/* Performance optimizations */
+.faq__accordion {
+  contain: layout style;
+}
+
+.faq__item {
+  contain: layout style paint;
+  will-change: background-color, border-color;
+}
