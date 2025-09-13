@@ -1,11 +1,13 @@
 "use client";
 
+
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { ArrowRight, Menu, X } from "lucide-react";
 import { NavigationItem, ScrollPosition } from "@/types";
 import "./Header.css";
+import { usePathname, useRouter } from "next/navigation";
 
 
 interface HeaderProps {
@@ -17,17 +19,18 @@ const Header: React.FC<HeaderProps> = ({ onContactClick, className = "" }) => {
   const [scrollPosition, setScrollPosition] = useState<ScrollPosition>({ x: 0, y: 0 });
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState<boolean>(false);
 
-  // Navigation items for scroll-based navigation (same page)
+  // Navigation items for scroll-based navigation (same page, now always go to home page + section)
   const scrollNavigationItems: NavigationItem[] = [
-    { label: "Teams", href: "team" },
-    { label: "Testimonials", href: "testimonials" },
-    { label: "Form", href: "application-form" },
+    { label: "Home", href: "/" },
+    { label: "Teams", href: "/#team" },
+    { label: "Form", href: "/#application-form" },
   ];
 
   // Navigation items for page-based navigation
   const pageNavigationItems: NavigationItem[] = [
     { label: "Models", href: "/models", external: false },
   ];
+
 
   useEffect(() => {
     const handleScroll = (): void => {
@@ -41,13 +44,19 @@ const Header: React.FC<HeaderProps> = ({ onContactClick, className = "" }) => {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  const scrollToSection = (sectionId: string): void => {
-    const element = document.getElementById(sectionId);
-    if (element) {
-      element.scrollIntoView({
-        behavior: "smooth",
-        block: "start"
-      });
+  const pathname = typeof window !== "undefined" ? window.location.pathname : "/";
+  const router = useRouter();
+
+  const handleSectionClick = (href: string) => {
+    if (href === "/") {
+      if (pathname === "/") {
+        // Already on home, scroll to top
+        window.scrollTo({ top: 0, behavior: "smooth" });
+      } else {
+        router.push("/");
+      }
+    } else {
+      router.push(href);
     }
   };
 
@@ -61,11 +70,13 @@ const Header: React.FC<HeaderProps> = ({ onContactClick, className = "" }) => {
             {/* Logo */}
           {/* Desktop Navigation */}
             <div className="header__desktop-nav">
-              {/* Scroll-based navigation */}
+
+
+              {/* Scroll-based navigation (Home, Teams, Form) */}
               {scrollNavigationItems.map((item) => (
                 <button
                   key={item.label}
-                  onClick={() => scrollToSection(item.href)}
+                  onClick={() => handleSectionClick(item.href)}
                   className="header__nav-item"
                   type="button"
                 >
@@ -73,7 +84,7 @@ const Header: React.FC<HeaderProps> = ({ onContactClick, className = "" }) => {
                 </button>
               ))}
 
-              {/* Page-based navigation */}
+              {/* Page-based navigation (Models) */}
               {pageNavigationItems.map((item) => (
                 <Link
                   key={item.label}
@@ -116,7 +127,7 @@ const Header: React.FC<HeaderProps> = ({ onContactClick, className = "" }) => {
               <button
                 key={item.label}
                 onClick={() => {
-                  scrollToSection(item.href);
+                  handleSectionClick(item.href);
                   setIsMobileMenuOpen(false);
                 }}
                 className="header__mobile-item"
