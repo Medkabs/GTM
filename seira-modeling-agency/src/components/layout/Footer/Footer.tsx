@@ -22,7 +22,7 @@ const Footer: React.FC<FooterProps> = ({ className = "" }) => {
   const footerLinks: NavigationItem[] = [
     { label: "Back to top", href: "hero" },
     { label: "Models", href: "/models", external: false },
-    { label: "FAQ", href: "faq" },
+    // { label: "FAQ", href: "faq" },
   ];
 
   const socialLinks: NavigationItem[] = [
