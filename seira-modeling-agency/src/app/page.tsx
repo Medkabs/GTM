@@ -26,14 +26,15 @@ import { ArrowRight } from "lucide-react";
 import { ContactForm, SecurityConfig } from "@/types";
 import { sanitizeInput, isValidEmail, validateFormData, logSecurityEvent } from "@/lib/security";
 
-// Dynamically import heavy components
-const TestimonialsSection = dynamic(() => import("@/components/sections/Testimonials/Testimonials"), {
-  loading: () => <div className="min-h-[400px] bg-background" />,
-});
+// // Dynamically import heavy components
+// const TestimonialsSection = dynamic(() => import("@/components/sections/Testimonials/Testimonials"), {
+//   loading: () => <div className="min-h-[400px] bg-background" />,
+// });
 
-const FAQSection = dynamic(() => import("@/components/sections/FAQ/FAQ"), {
-  loading: () => <div className="min-h-[400px] bg-background" />,
-});
+// const FAQSection = dynamic(
+//   () => import("@/components/sections/FAQ/FAQ"),
+//   { ssr: false, loading: () => <div className="min-h-[400px] bg-background" /> }
+// );
 
 // Security configuration
 const securityConfig: SecurityConfig = {
@@ -158,9 +159,9 @@ export default function HomePage(): JSX.Element {
 
       <Team />
 
-      <TestimonialsSection />
+      {/* <TestimonialsSection /> */}
 
-      <FAQSection />
+      {/* <FAQSection /> */}
 
       <ApplicationForm />
 
