@@ -42,7 +42,7 @@ const securityConfig: SecurityConfig = {
   enableClickjacking: true,
 };
 
-export default function HomePage(): JSX.Element {
+export default function HomePage() {
   // State management
   const [isContactModalOpen, setIsContactModalOpen] = useState<boolean>(false);
   const [contactForm, setContactForm] = useState<ContactForm>({

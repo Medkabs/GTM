@@ -29,7 +29,7 @@ const securityConfig: SecurityConfig = {
   enableClickjacking: true,
 };
 
-export default function ModelsPage(): JSX.Element {
+export default function ModelsPage() {
   // State management
   const [isContactModalOpen, setIsContactModalOpen] = React.useState<boolean>(false);
   const [contactForm, setContactForm] = React.useState<ContactForm>({
