@@ -154,7 +154,7 @@
 .application-form__input:focus,
 .application-form__textarea:focus {
   outline: none;
-  border-color: hsl(229, 84%, 56%);
+  border-color: #337148;
   background: rgba(255, 255, 255, 0.12);
   box-shadow: 0 0 0 3px rgba(59, 73, 204, 0.2);
 }

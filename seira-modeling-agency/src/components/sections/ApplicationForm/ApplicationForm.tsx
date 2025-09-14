@@ -108,6 +108,14 @@ const ApplicationForm: React.FC<ApplicationFormProps> = ({ className = "" }) => 
         } else if (!/^[\+]?[1-9][\d]{0,15}$/.test(formData.phoneNumber.replace(/\s/g, ""))) {
           stepErrors.phoneNumber = "Please enter a valid phone number";
         }
+
+        // Validate passionAge if provided
+        if (formData.passionAge && formData.passionAge.trim()) {
+          const ageValue = Number(formData.passionAge);
+          if (!Number.isInteger(ageValue) || ageValue < 1 || ageValue > 100) {
+            stepErrors.passionAge = "Please enter a valid age between 1 and 100";
+          }
+        }
         break;
 
       case 2:
@@ -168,6 +176,59 @@ const ApplicationForm: React.FC<ApplicationFormProps> = ({ className = "" }) => 
     if (errors[field]) {
       setErrors(prev => ({ ...prev, [field]: "" }));
     }
+  };
+
+  // Specific handlers for passionAge to allow manual numeric entry only and clamp on blur
+  const handlePassionAgeChange = (raw: string): void => {
+    // Allow only digits by stripping non-digit characters
+    const digitsOnly = raw.replace(/\D+/g, '');
+    // Prevent leading zeros (optional)
+    let normalized = digitsOnly.replace(/^0+(?=\d)/, '');
+    // If numeric value exceeds 100, clamp to '100'
+    if (normalized) {
+      const num = Number(normalized);
+      if (!Number.isNaN(num) && num > 100) {
+        normalized = '100';
+      }
+    }
+    setFormData(prev => ({ ...prev, passionAge: normalized }));
+
+    if (errors.passionAge) {
+      setErrors(prev => ({ ...prev, passionAge: "" }));
+    }
+  };
+
+  const handlePassionAgeBlur = (): void => {
+    const raw = formData.passionAge.trim();
+    if (!raw) return;
+    const value = Number(raw);
+    if (Number.isNaN(value)) {
+      setErrors(prev => ({ ...prev, passionAge: "Please enter a valid age between 1 and 100" }));
+      return;
+    }
+    // Clamp to 1-100
+    const clamped = Math.min(100, Math.max(1, Math.floor(value)));
+    if (String(clamped) !== raw) {
+      setFormData(prev => ({ ...prev, passionAge: String(clamped) }));
+    }
+  };
+
+  const handlePassionAgePaste = (e: React.ClipboardEvent<HTMLInputElement>): void => {
+    const pasted = e.clipboardData.getData('text') || '';
+    const digitsOnly = pasted.replace(/\D+/g, '');
+    if (!digitsOnly) {
+      e.preventDefault();
+      return;
+    }
+    // Replace the paste with cleaned digits and clamp to 100
+    e.preventDefault();
+    // Limit to max 3 chars (since 100 is max)
+    let limited = digitsOnly.slice(0, 3);
+    const num = Number(limited);
+    if (!Number.isNaN(num) && num > 100) {
+      limited = '100';
+    }
+    setFormData(prev => ({ ...prev, passionAge: limited }));
   };
 
   // Handle file upload
@@ -241,7 +302,7 @@ const ApplicationForm: React.FC<ApplicationFormProps> = ({ className = "" }) => 
   };
 
   // Render step content
-  const renderStepContent = (): JSX.Element => {
+  const renderStepContent = (): React.ReactNode => {
     switch (currentStep) {
       case 1:
         return (
@@ -318,13 +379,48 @@ const ApplicationForm: React.FC<ApplicationFormProps> = ({ className = "" }) => 
               <Input
                 id="passionAge"
                 type="number"
+                inputMode="numeric"
+                pattern="\\d*"
+                min={1}
+                max={100}
+                step={1}
                 value={formData.passionAge}
-                onChange={(e) => handleInputChange('passionAge', e.target.value)}
-                className="application-form__input"
+                onChange={(e) => handlePassionAgeChange(e.target.value)}
+                onBlur={handlePassionAgeBlur}
+                onPaste={handlePassionAgePaste}
+                onKeyDown={(e: React.KeyboardEvent<HTMLInputElement>) => {
+                  // Allow control keys, navigation, backspace, etc.
+                  const allowedKeys = ['Backspace', 'Delete', 'ArrowLeft', 'ArrowRight', 'Tab'];
+                  if (allowedKeys.includes(e.key)) return;
+
+                  // Only allow digit keys
+                  if (!/^[0-9]$/.test(e.key)) {
+                    e.preventDefault();
+                    return;
+                  }
+
+                  // Prevent entering a digit that would make the value > 100
+                  const input = e.currentTarget as HTMLInputElement;
+                  const selectionStart = input.selectionStart ?? 0;
+                  const selectionEnd = input.selectionEnd ?? 0;
+                  const current = input.value || '';
+                  // Compose the would-be value after the key press
+                  const wouldBe = current.slice(0, selectionStart) + e.key + current.slice(selectionEnd);
+                  const digitsOnly = wouldBe.replace(/\D+/g, '');
+                  const num = Number(digitsOnly);
+                  if (!Number.isNaN(num) && num > 100) {
+                    e.preventDefault();
+                  }
+                }}
+                className={`application-form__input ${errors.passionAge ? 'application-form__input--error' : ''}`}
                 placeholder="Enter age"
-                min="1"
-                max="100"
               />
+              {errors.passionAge && (
+                <span className="application-form__error">
+                  <AlertCircle className="application-form__error-icon" />
+                  {errors.passionAge}
+                </span>
+              )}
             </div>
           </div>
         );

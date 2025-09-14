@@ -99,7 +99,7 @@
 
 .header__nav-item:focus,
 .header__nav-link:focus {
-  outline: 2px solid hsl(229, 84%, 56%);
+  outline: 2px solid #50C878;
   outline-offset: 2px;
 }
 
@@ -122,7 +122,7 @@
 }
 
 .header__contact-btn:hover {
-  background-color: hsl(229, 84%, 46%);
+  background-color: #3f945b;
   transform: translateY(-1px);
   box-shadow: 0 4px 12px rgba(59, 73, 204, 0.3);
 }
