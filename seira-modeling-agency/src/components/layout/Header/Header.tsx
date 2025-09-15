@@ -29,6 +29,7 @@ const Header: React.FC<HeaderProps> = ({ onContactClick, className = "" }) => {
   // Navigation items for page-based navigation
   const pageNavigationItems: NavigationItem[] = [
     { label: "Models", href: "/models", external: false },
+    { label: "About us", href: "/about", external: false },
   ];
 
 
@@ -44,18 +45,48 @@ const Header: React.FC<HeaderProps> = ({ onContactClick, className = "" }) => {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  const pathname = typeof window !== "undefined" ? window.location.pathname : "/";
+  const pathname = usePathname() || "/";
   const router = useRouter();
 
   const handleSectionClick = (href: string) => {
+    // Normalize href (allow '#id' or '/#id' or full paths)
+    if (!href) return;
+
+    // Direct home shortcut
     if (href === "/") {
       if (pathname === "/") {
-        // Already on home, scroll to top
         window.scrollTo({ top: 0, behavior: "smooth" });
       } else {
         router.push("/");
       }
-    } else {
+      return;
+    }
+
+    // Handle hash anchors: '#team' or '/#team'
+    try {
+      const normalized = href.startsWith("#") ? `${window.location.pathname}${href}` : href;
+      const url = new URL(normalized, window.location.origin);
+      const targetPath = url.pathname || "/";
+      const hash = url.hash; // includes '#'
+
+      if (targetPath === pathname) {
+        // Same page: perform smooth scroll if element exists
+        if (hash) {
+          const id = hash.slice(1);
+          const el = document.getElementById(id);
+          if (el) {
+            el.scrollIntoView({ behavior: "smooth", block: "start" });
+            return;
+          }
+        }
+        // No hash or element missing: fallback to push to href (may trigger router scroll)
+        router.push(href);
+      } else {
+        // Different page: navigate (includes hash if present)
+        router.push(href);
+      }
+    } catch (err) {
+      // Fallback: navigate
       router.push(href);
     }
   };
@@ -128,7 +159,7 @@ const Header: React.FC<HeaderProps> = ({ onContactClick, className = "" }) => {
                 key={item.label}
                 onClick={() => {
                   handleSectionClick(item.href);
-                  setIsMobileMenuOpen(false);
+                  setTimeout(() => setIsMobileMenuOpen(false), 150); // allow scroll to start
                 }}
                 className="header__mobile-item"
                 type="button"
