@@ -318,10 +318,14 @@
   background: #50C878;
   border: none;
   color: white;
-  margin-left: auto;
-  margin-right:auto;
-  width: 50%;
+}
 
+/* Apply centered 50% width only on step 1 */
+.application-form[data-current-step="1"] .application-form__nav-button--next,
+.application-form[data-current-step="1"] .application-form__nav-button--submit {
+  margin-left: auto;
+  margin-right: auto;
+  width: 50%;
 }
 
 .application-form__nav-button--next:hover:not(:disabled),
