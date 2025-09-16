@@ -72,6 +72,25 @@ export const sanitizeInput = (input: string): string => {
 };
 
 /**
+ * Sanitize multiline user input (e.g. textareas) while preserving
+ * whitespace and newlines. This escapes dangerous characters but
+ * does not trim or collapse spaces so users can type paragraphs naturally.
+ */
+export const sanitizeMultilineInput = (input: string, maxLength: number = 5000): string => {
+  if (typeof input !== 'string') return '';
+
+  const entityMap: Record<string, string> = {
+    '<': '&lt;',
+    '>': '&gt;',
+    '"': '&quot;',
+    "'": '&#x27;',
+    '&': '&amp;',
+  };
+
+  return input.replace(/[<>'"&]/g, (char) => entityMap[char] || char).slice(0, maxLength);
+};
+
+/**
  * Validate email format
  */
 export const isValidEmail = (email: string): boolean => {

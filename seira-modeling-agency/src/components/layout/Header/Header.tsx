@@ -29,7 +29,7 @@ const Header: React.FC<HeaderProps> = ({ onContactClick, className = "" }) => {
   // Navigation items for page-based navigation
   const pageNavigationItems: NavigationItem[] = [
     { label: "Models", href: "/models", external: false },
-    { label: "About us", href: "/about", external: false },
+    { label: "About", href: "/about", external: false },
   ];
 
 
