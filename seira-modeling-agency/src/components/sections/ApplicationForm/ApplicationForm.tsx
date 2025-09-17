@@ -6,8 +6,9 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Label } from "@/components/ui/label";
+import { Select, SelectTrigger, SelectValue, SelectContent, SelectItem } from "@/components/ui/select";
 import { ArrowLeft, ArrowRight, Upload, Check, AlertCircle } from "lucide-react";
-import { sanitizeInput, isValidEmail, generateCSRFToken } from "@/lib/security";
+import { sanitizeInput, sanitizeMultilineInput, isValidEmail, generateCSRFToken } from "@/lib/security";
 import "./ApplicationForm.css";
 
 interface FormData {
@@ -108,6 +109,14 @@ const ApplicationForm: React.FC<ApplicationFormProps> = ({ className = "" }) => 
         } else if (!/^[\+]?[1-9][\d]{0,15}$/.test(formData.phoneNumber.replace(/\s/g, ""))) {
           stepErrors.phoneNumber = "Please enter a valid phone number";
         }
+
+        // Validate passionAge if provided
+        if (formData.passionAge && formData.passionAge.trim()) {
+          const ageValue = Number(formData.passionAge);
+          if (!Number.isInteger(ageValue) || ageValue < 1 || ageValue > 100) {
+            stepErrors.passionAge = "Please enter a valid age between 1 and 100";
+          }
+        }
         break;
 
       case 2:
@@ -158,16 +167,100 @@ const ApplicationForm: React.FC<ApplicationFormProps> = ({ className = "" }) => 
 
   // Handle input changes with sanitization
   const handleInputChange = (field: keyof FormData, value: string | File | null): void => {
-    if (typeof value === 'string') {
-      value = sanitizeInput(value);
+    // For file inputs or non-string values, just set directly
+    if (typeof value !== 'string') {
+      setFormData(prev => ({ ...prev, [field]: value }));
+      if (errors[field]) {
+        setErrors(prev => ({ ...prev, [field]: "" }));
+      }
+      return;
     }
 
-    setFormData(prev => ({ ...prev, [field]: value }));
+    // Use a multiline-safe sanitizer for textarea fields so spaces and newlines are preserved
+    const multilineFields: Array<keyof FormData> = [
+      'interests',
+      'careerEnhancement',
+      'careerGoals',
+      'challenges',
+      'criminalDetails'
+    ];
+
+      const sanitizedValueInitial = multilineFields.includes(field)
+        ? sanitizeMultilineInput(value)
+        : sanitizeInput(value);
+
+      // Per-field maximum character lengths
+      const maxFieldLengths: Partial<Record<keyof FormData, number>> = {
+        waist: 3,
+        chest: 3,
+        hips: 3,
+        inseam: 3,
+        shoe: 4,
+        suit: 4,
+      };
+
+      const maxLen = maxFieldLengths[field as keyof FormData];
+      const sanitizedValue = typeof maxLen === 'number' ? String(sanitizedValueInitial).slice(0, maxLen) : sanitizedValueInitial;
+
+    setFormData(prev => ({ ...prev, [field]: sanitizedValue }));
 
     // Clear specific field error when user starts typing
     if (errors[field]) {
       setErrors(prev => ({ ...prev, [field]: "" }));
     }
+  };
+
+  // Specific handlers for passionAge to allow manual numeric entry only and clamp on blur
+  const handlePassionAgeChange = (raw: string): void => {
+    // Allow only digits by stripping non-digit characters
+    const digitsOnly = raw.replace(/\D+/g, '');
+    // Prevent leading zeros (optional)
+    let normalized = digitsOnly.replace(/^0+(?=\d)/, '');
+    // If numeric value exceeds 100, clamp to '100'
+    if (normalized) {
+      const num = Number(normalized);
+      if (!Number.isNaN(num) && num > 100) {
+        normalized = '100';
+      }
+    }
+    setFormData(prev => ({ ...prev, passionAge: normalized }));
+
+    if (errors.passionAge) {
+      setErrors(prev => ({ ...prev, passionAge: "" }));
+    }
+  };
+
+  const handlePassionAgeBlur = (): void => {
+    const raw = formData.passionAge.trim();
+    if (!raw) return;
+    const value = Number(raw);
+    if (Number.isNaN(value)) {
+      setErrors(prev => ({ ...prev, passionAge: "Please enter a valid age between 1 and 100" }));
+      return;
+    }
+    // Clamp to 1-100
+    const clamped = Math.min(100, Math.max(1, Math.floor(value)));
+    if (String(clamped) !== raw) {
+      setFormData(prev => ({ ...prev, passionAge: String(clamped) }));
+    }
+  };
+
+  const handlePassionAgePaste = (e: React.ClipboardEvent<HTMLInputElement>): void => {
+    const pasted = e.clipboardData.getData('text') || '';
+    const digitsOnly = pasted.replace(/\D+/g, '');
+    if (!digitsOnly) {
+      e.preventDefault();
+      return;
+    }
+    // Replace the paste with cleaned digits and clamp to 100
+    e.preventDefault();
+    // Limit to max 3 chars (since 100 is max)
+    let limited = digitsOnly.slice(0, 3);
+    const num = Number(limited);
+    if (!Number.isNaN(num) && num > 100) {
+      limited = '100';
+    }
+    setFormData(prev => ({ ...prev, passionAge: limited }));
   };
 
   // Handle file upload
@@ -241,7 +334,7 @@ const ApplicationForm: React.FC<ApplicationFormProps> = ({ className = "" }) => 
   };
 
   // Render step content
-  const renderStepContent = (): JSX.Element => {
+  const renderStepContent = (): React.ReactNode => {
     switch (currentStep) {
       case 1:
         return (
@@ -318,13 +411,48 @@ const ApplicationForm: React.FC<ApplicationFormProps> = ({ className = "" }) => 
               <Input
                 id="passionAge"
                 type="number"
+                inputMode="numeric"
+                pattern="\\d*"
+                min={1}
+                max={100}
+                step={1}
                 value={formData.passionAge}
-                onChange={(e) => handleInputChange('passionAge', e.target.value)}
-                className="application-form__input"
+                onChange={(e) => handlePassionAgeChange(e.target.value)}
+                onBlur={handlePassionAgeBlur}
+                onPaste={handlePassionAgePaste}
+                onKeyDown={(e: React.KeyboardEvent<HTMLInputElement>) => {
+                  // Allow control keys, navigation, backspace, etc.
+                  const allowedKeys = ['Backspace', 'Delete', 'ArrowLeft', 'ArrowRight', 'Tab'];
+                  if (allowedKeys.includes(e.key)) return;
+
+                  // Only allow digit keys
+                  if (!/^[0-9]$/.test(e.key)) {
+                    e.preventDefault();
+                    return;
+                  }
+
+                  // Prevent entering a digit that would make the value > 100
+                  const input = e.currentTarget as HTMLInputElement;
+                  const selectionStart = input.selectionStart ?? 0;
+                  const selectionEnd = input.selectionEnd ?? 0;
+                  const current = input.value || '';
+                  // Compose the would-be value after the key press
+                  const wouldBe = current.slice(0, selectionStart) + e.key + current.slice(selectionEnd);
+                  const digitsOnly = wouldBe.replace(/\D+/g, '');
+                  const num = Number(digitsOnly);
+                  if (!Number.isNaN(num) && num > 100) {
+                    e.preventDefault();
+                  }
+                }}
+                className={`application-form__input ${errors.passionAge ? 'application-form__input--error' : ''}`}
                 placeholder="Enter age"
-                min="1"
-                max="100"
               />
+              {errors.passionAge && (
+                <span className="application-form__error">
+                  <AlertCircle className="application-form__error-icon" />
+                  {errors.passionAge}
+                </span>
+              )}
             </div>
           </div>
         );
@@ -544,7 +672,7 @@ const ApplicationForm: React.FC<ApplicationFormProps> = ({ className = "" }) => 
                   onChange={(e) => handleInputChange('waist', e.target.value)}
                   className="application-form__input"
                   placeholder="e.g. 28"
-                  maxLength={10}
+                  maxLength={3}
                 />
               </div>
 
@@ -557,7 +685,7 @@ const ApplicationForm: React.FC<ApplicationFormProps> = ({ className = "" }) => 
                   onChange={(e) => handleInputChange('chest', e.target.value)}
                   className={`application-form__input ${errors.chest ? 'application-form__input--error' : ''}`}
                   placeholder="e.g. 36"
-                  maxLength={10}
+                  maxLength={3}
                 />
                 {errors.chest && (
                   <span className="application-form__error">
@@ -576,7 +704,7 @@ const ApplicationForm: React.FC<ApplicationFormProps> = ({ className = "" }) => 
                   onChange={(e) => handleInputChange('hips', e.target.value)}
                   className="application-form__input"
                   placeholder="e.g. 34"
-                  maxLength={10}
+                  maxLength={3}
                 />
               </div>
 
@@ -589,7 +717,7 @@ const ApplicationForm: React.FC<ApplicationFormProps> = ({ className = "" }) => 
                   onChange={(e) => handleInputChange('inseam', e.target.value)}
                   className="application-form__input"
                   placeholder="e.g. 32"
-                  maxLength={10}
+                  maxLength={3}
                 />
               </div>
 
@@ -602,21 +730,25 @@ const ApplicationForm: React.FC<ApplicationFormProps> = ({ className = "" }) => 
                   onChange={(e) => handleInputChange('shoe', e.target.value)}
                   className="application-form__input"
                   placeholder="e.g. 9.5"
-                  maxLength={10}
+                  maxLength={4}
                 />
               </div>
 
               <div className="application-form__field">
                 <Label htmlFor="shirt" className="application-form__label">Shirt</Label>
-                <Input
-                  id="shirt"
-                  type="text"
-                  value={formData.shirt}
-                  onChange={(e) => handleInputChange('shirt', e.target.value)}
-                  className="application-form__input"
-                  placeholder="e.g. M"
-                  maxLength={10}
-                />
+                <Select
+                  onValueChange={(value) => handleInputChange('shirt', value)}
+                  value={formData.shirt || undefined}
+                >
+                  <SelectTrigger className="application-form__input" aria-label="Shirt size">
+                    <SelectValue placeholder="Select size" />
+                  </SelectTrigger>
+                  <SelectContent className="bg-black/95 backdrop-blur-xl border-white/10">
+                    {['xxs','xs','s','m','l','xl','xxl','xxxl'].map(sz => (
+                      <SelectItem key={sz} value={sz} className="text-white hover:bg-white/10">{sz.toUpperCase()}</SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
               </div>
 
               <div className="application-form__field">
@@ -628,7 +760,7 @@ const ApplicationForm: React.FC<ApplicationFormProps> = ({ className = "" }) => 
                   onChange={(e) => handleInputChange('suit', e.target.value)}
                   className="application-form__input"
                   placeholder="e.g. 40R"
-                  maxLength={10}
+                  maxLength={4}
                 />
               </div>
             </div>
@@ -664,7 +796,7 @@ const ApplicationForm: React.FC<ApplicationFormProps> = ({ className = "" }) => 
   }
 
   return (
-    <section id="application-form" className={`application-form ${className}`}>
+    <section id="application-form" data-current-step={currentStep} className={`application-form ${className}`}>
       <div className="application-form__container">
         {/* Form Header */}
         <div className="application-form__header">
