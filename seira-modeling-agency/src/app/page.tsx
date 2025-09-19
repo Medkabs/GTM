@@ -152,9 +152,9 @@ export default function HomePage() {
       {/* Main Content Sections */}
       <Hero onDiscoverClick={() => logSecurityEvent("hero_cta_click")} />
 
-      <BeALight />
-
       <About />
+      
+      <BeALight />
 
       <Team />
 
