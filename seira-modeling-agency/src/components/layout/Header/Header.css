@@ -51,11 +51,11 @@
 }
 
 .header__logo:hover {
-  color: hsl(229, 84%, 56%);
+  color: #188048;
 }
 
 .header__logo:focus {
-  outline: 2px solid hsl(229, 84%, 56%);
+  outline: 2px solid #188048;
   outline-offset: 2px;
   border-radius: 4px;
 }
@@ -99,7 +99,7 @@
 
 .header__nav-item:focus,
 .header__nav-link:focus {
-  outline: 2px solid #50C878;
+  outline: 2px solid #188048;
   outline-offset: 2px;
 }
 
@@ -109,7 +109,7 @@
 }
 
 .header__contact-btn {
-  background-color: #50C878;
+  background-color: #188048;
   color: white;
   border: none;
   padding: 0.5rem 1rem;
@@ -163,7 +163,7 @@
 }
 
 .header__mobile-toggle:focus {
-  outline: 2px solid hsl(229, 84%, 56%);
+  outline: 2px solid #188048;
   outline-offset: 2px;
 }
 
@@ -226,13 +226,13 @@
 }
 
 .header__mobile-contact {
-  background-color: hsl(229, 84%, 56%);
+  background-color: #188048;
   color: white;
   margin-top: 1rem;
 }
 
 .header__mobile-contact:hover {
-  background-color: hsl(229, 84%, 46%);
+  background-color: #188048;
   transform: scale(1.05);
 }
 

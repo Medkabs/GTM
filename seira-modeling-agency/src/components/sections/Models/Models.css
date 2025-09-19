@@ -84,15 +84,15 @@
 }
 
 .models__filter--active {
-  background: hsl(229, 84%, 56%);
+  background: #188048;
   color: white;
-  border-color: hsl(229, 84%, 56%);
+  border-color: #188048;
   transform: translateY(-1px);
   box-shadow: 0 4px 12px rgba(59, 73, 204, 0.3);
 }
 
 .models__filter:focus {
-  outline: 2px solid hsl(229, 84%, 56%);
+  outline: 2px solid #188048;
   outline-offset: 2px;
 }
 
@@ -133,7 +133,7 @@
 }
 
 .models__card:focus {
-  outline: 2px solid hsl(229, 84%, 56%);
+  outline: 2px solid #188048;
   outline-offset: 2px;
   border-radius: 16px;
 }

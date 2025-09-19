@@ -16,13 +16,13 @@ export default function AboutPage() {
       <Header />
 
       {/* HERO */}
-      <section className="pt-24 pb-12 bg-gradient-to-b from-black/60 to-black/40">
+      <section className="pt-[12rem] pb-12 bg-gradient-to-b from-black/60 to-black/40">
         <div className="max-w-7xl mx-auto px-6 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 items-center">
             <div className="lg:col-span-2">
               <h1 className="font-serif text-4xl sm:text-5xl lg:text-6xl font-bold leading-tight mb-4">
                 In An Industry Of Many Stones, There Is Only One
-                <span className="block text-primary">Gem Talent Management</span>
+                <span className="block text-[#188048]">Gem Talent Management</span>
               </h1>
 
               <p className="text-lg text-white/80 max-w-3xl leading-relaxed">
@@ -61,7 +61,7 @@ export default function AboutPage() {
                 </div>
               </div>
 
-              <a href="#contact" className="mt-6 inline-block w-full text-center bg-gradient-to-r from-blue-600 to-purple-600 hover:opacity-95 text-black font-semibold py-2 rounded-md">
+              <a href="#contact" className="mt-6 inline-block w-full text-center text-white bg-gradient-to-r from-[#188048] to-[#0f5030] hover:opacity-95 text-black font-semibold py-2 rounded-md">
                 Get in Touch
               </a>
             </aside>
@@ -74,7 +74,7 @@ export default function AboutPage() {
         <div className="max-w-6xl mx-auto px-6 lg:px-8">
           <div className="bg-white/3 border border-white/6 rounded-2xl p-8 lg:p-12 shadow-lg grid grid-cols-1 lg:grid-cols-3 gap-8 items-start">
             <div className="flex flex-col items-center lg:items-start gap-6">
-              <div className="w-44 h-44 rounded-xl overflow-hidden ring-4 ring-white/6 shadow-xl">
+              <div className="w-44 h-44 rounded-xl overflow-hidden ring-4 ring-[#188048] shadow-xl">
                 <Image src="/Nisani.png" alt="Team lead" width={176} height={176} className="object-cover" />
               </div>
               <div className="text-center lg:text-left">
