@@ -1,244 +1,64 @@
-.be-a-light {
-  position: relative;
-  width: 124%;
+/* Reset and box sizing */
+*,
+*:after,
+*:before {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  height: 100%;
+  margin: 0;
+  font-family: 'Unica One', sans-serif;
+  background: #0f0e0e;
+}
+
+/* Container centers content and takes full viewport */
+.container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
   height: 100vh; /* full viewport height */
-  background: url("/UntitledDesign.svg") no-repeat ; /* anchored left-bottom */
-  background-size: 100% auto; /* stretch width to fill section, height scales proportionally */
-  max-height: 100%;
-  right: 42%;
-}
-
-/* Glow independent of SVG container */
-.light-glow {
+  width: 100%;
+  padding: 2rem;
   position: relative;
-  bottom: 0%;
-  left: 10;
-  width: 113.9%;
-  height: 100%; /* fills entire section */
-  background: radial-gradient(
-    circle at 52.5% 12%, /* roughly where lamp is in % of section */
-    rgba(255, 255, 200, 0.6) 0%,
-    rgba(255, 255, 200, 0.2) 50%,
-    transparent 100%
-  );
-  animation: brokenFlicker 4s infinite;
-  pointer-events: none;
-  z-index: 20;
+  text-align: center;
 }
 
-/* Flickering text repositioned */
-.flicker-text {
-  position: absolute;        /* allows manual placement */
-  top:11%;                   /* distance from bottom of section */
-  left: 58.5%;                /* distance from left edge */
-  text-shadow: 0 0 20px rgba(255, 255, 150, 0.8),
-               0 0 40px rgba(255, 255, 150, 0.6);
-  animation: textFlicker 4s infinite;
-  font-size: 2rem;           /* adjust size as needed */
-  font-weight: bold;
-  color: white;
+/* Heading text before reveal */
+.heading {
+  color: #fff;
+  font-size: 10vw; /* responsive large text */
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  position: relative;
+  z-index: 1;
+  display: inline-block;
+  transition: all 0.3s ease;
 }
 
-/* Word revealed when lamp flickers */
-.reveal-word {
+/* 3D effect applied after text is fully revealed */
+.heading.reveal-complete {
+  color: #e91e63;
+  text-shadow:
+    -0.035em 0.035em 0 #c2185b,
+    -0.03em 0.03em 0 #d81b60,
+    -0.025em 0.025em 0 #e91e63,
+    -0.02em 0.02em 0 #ec407a,
+    -0.015em 0.015em 0 #f06292,
+    -0.01em 0.01em 0 #f48fb1,
+    -0.005em 0.005em 0 #f8bbd0,
+    0 0 0 #fff;
+  transform: translateZ(0); /* for GPU acceleration */
+  perspective: 1000px;
+}
+
+/* Optional subtle container overlay */
+.container::before {
+  content: "";
   position: absolute;
-  top: 59%;     /* adjust where word shows in dark section */
-  left: 80%;
-  transform: translate(-50%, -50%);
-  font-size: 9rem;
-  font-weight: bold;
-  color: white;
-  opacity: 0;   /* hidden by default */
-  animation: revealWithFlicker 4s infinite;
-  z-index: 25;
+  inset: 0;
+  background: radial-gradient(circle, rgba(0, 0, 0, 0.1) 0%, transparent 70%);
   pointer-events: none;
 }
-
-/* Animate word to appear when lamp flickers */
-@keyframes revealWithFlicker {
-  0%, 40%, 32%, 50%, 54%, 100% { opacity: 1; }  /* word visible during lamp on */
-  39%, 21%, 51%, 53% { opacity: 0; }           /* word hidden during lamp off */
-}
-/* Broken bulb flicker animation */
-@keyframes brokenFlicker {
-  0%, 90%, 32%, 50%, 54%, 100% { opacity: 1; }
-  39%, 21%, 51%, 53% { opacity: 0; }
-}
-
-/* Text sync flicker */
-@keyframes textFlicker {
-  0%, 90%, 32%, 50%, 54%, 100% { opacity: 1; }
-  39%, 21%, 51%, 53% { opacity: 0; }
-}
-
-
-/* ===========================
-   Safari-only overrides
-   =========================== */
-@supports (-webkit-touch-callout: none) {
-  .be-a-light {
-    width: 120%;
-    right: 40%;
-  }
-
-  .light-glow {
-    width: 120%;
-    background: radial-gradient(
-      circle at 50% 15%,
-      rgba(255, 255, 200, 0.7) 0%,
-      rgba(255, 255, 200, 0.25) 45%,
-      transparent 100%
-    );
-  }
-
-  .flicker-text {
-    font-size: rem;
-    top: 12%;
-    left: 57%;
-  }
-
-  .reveal-word {
-    top: 62%;
-    left: 78%;
-    font-size: 8rem;
-  }
-}
-
-
-/* ===========================
-   Mobile overrides
-   =========================== */
-@media (max-width: 1024px) {
-  .be-a-light {
-    width: 150%;
-    right: 55%;
-    background-size: contain;
-  }
-
-  .light-glow {
-    width: 140%;
-  }
-
-  .flicker-text {
-    top: 6.8%;
-    left: 58.7%;
-    font-size: 1rem;
-  }
-
-  .reveal-word {
-    top: 38%;
-    left: 88%;
-    font-size: 5rem;
-  }
-  
-}
-
-
-@media (max-width: 480px) {
-  .be-a-light {
-    width: 150%;
-    right: 55%;
-    background-size: contain;
-    
-  }
-
-  .light-glow {
-    width: 140%;
-  }
-
-  .flicker-text {
-    top: 4%;
-    left: 58.5%;
-    font-size: 0.6rem;
-  }
-
-  .reveal-word {
-    top: 25%;
-    left: 90%;
-
-    font-size: 2rem;
-  }
-  
-}
-
-@media (max-width: 379px) {
-  .be-a-light {
-    width: 150%;
-    right: 55%;
-    background-size: contain;
-    
-  }
-
-  .light-glow {
-    width: 140%;
-  }
-
-  .flicker-text {
-    top: 5%;
-    left: 58.8%;
-    font-size: 0.4rem;
-  }
-
-  .reveal-word {
-    top: 25%;
-    left: 90%;
-
-    font-size: 2rem;
-  }
-  
-}
-
-@media (max-width: 361px) {
-  .be-a-light {
-    width: 150%;
-    right: 55%;
-    background-size: contain;
-    
-  }
-
-  .light-glow {
-    width: 140%;
-  }
-
-  .flicker-text {
-    top: 4.5%;
-    left: 58.8%;
-    font-size: 0.4rem;
-  }
-
-  .reveal-word {
-    top: 25%;
-    left: 90%;
-
-    font-size: 2rem;
-  }
-  
-}
-
-/* ===========================
-   Safari + Mobile overrides
-   =========================== */
-/* @media (max-width: 768px) {
-  @supports (-webkit-touch-callout: none) {
-    .be-a-light {
-      width: 145%;
-      right: 50%;
-    }
-
-    .light-glow {
-      width: 145%;
-    }
-
-    .flicker-text {
-      top: 16%;
-      left: 54%;
-      font-size: 1.2rem;
-    }
-
-    .reveal-word {
-      top: 68%;
-      left: 72%;
-      font-size: 4.5rem;
-    }
-  }
-} */
