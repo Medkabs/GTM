@@ -171,7 +171,7 @@ export default function HomePage() {
       <Dialog open={isContactModalOpen} onOpenChange={closeContactModal}>
         <DialogContent className="sm:max-w-lg bg-black/90 backdrop-blur-xl border border-white/10 text-white shadow-2xl">
           <DialogHeader className="text-center space-y-2 pb-2">
-            <div className="mx-auto w-16 h-16 bg-gradient-to-br from-blue-500 to-purple-600 rounded-full flex items-center justify-center mb-2">
+            <div className="mx-auto w-16 h-16 bg-gradient-to-br from-emerald-600 to-emerald-800 rounded-full flex items-center justify-center mb-2">
               <span className="text-2xl">✨</span>
             </div>
             <DialogTitle className="text-2xl font-bold bg-gradient-to-r from-white to-gray-300 bg-clip-text text-transparent">
@@ -193,7 +193,7 @@ export default function HomePage() {
                   placeholder="Jane Smith"
                   value={contactForm.name}
                   onChange={(e) => handleInputChange("name", e.target.value)}
-                  className="bg-white/5 border-white/10 text-white placeholder:text-white/40 h-11 rounded-lg backdrop-blur-sm hover:bg-white/10 focus:bg-white/10 transition-all duration-200"
+                  className="bg-white/5 border-white/10 text-white placeholder:text-white/40 h-11 rounded-lg backdrop-blur-sm hover:bg-white/10 focus:border-emerald-500 outline-none transition-all duration-200"
                   required
                   disabled={isSubmitting}
                   maxLength={100}
@@ -209,7 +209,7 @@ export default function HomePage() {
                   placeholder="jane@example.com"
                   value={contactForm.email}
                   onChange={(e) => handleInputChange("email", e.target.value)}
-                  className="bg-white/5 border-white/10 text-white placeholder:text-white/40 h-11 rounded-lg backdrop-blur-sm hover:bg-white/10 focus:bg-white/10 transition-all duration-200"
+                  className="bg-white/5 border-white/10 text-white placeholder:text-white/40 h-11 rounded-lg backdrop-blur-sm hover:bg-white/10 focus:border-emerald-500 outline-none transition-all duration-200"
                   required
                   disabled={isSubmitting}
                   maxLength={254}
@@ -227,7 +227,7 @@ export default function HomePage() {
                 onValueChange={(value) => handleInputChange("package", value)}
                 disabled={isSubmitting}
               >
-                <SelectTrigger className="bg-white/5 border-white/10 text-white h-11 rounded-lg backdrop-blur-sm hover:bg-white/10 focus:bg-white/10 transition-all duration-200">
+                <SelectTrigger className="bg-white/5 border-white/10 text-white h-11 rounded-lg backdrop-blur-sm hover:bg-white/10 focus:border-emerald-500 outline-none transition-all duration-200">
                   <SelectValue placeholder="What interests you?" />
                 </SelectTrigger>
                 <SelectContent className="bg-black/95 backdrop-blur-xl border-white/10">
@@ -256,7 +256,7 @@ export default function HomePage() {
                 placeholder="Tell us about yourself and your goals..."
                 value={contactForm.message}
                 onChange={(e) => handleInputChange("message", e.target.value)}
-                className="bg-white/5 border-white/10 text-white placeholder:text-white/40 rounded-lg backdrop-blur-sm hover:bg-white/10 focus:bg-white/10 transition-all duration-200 min-h-[80px] resize-none"
+                className="bg-white/5 border-white/10 text-white placeholder:text-white/40 rounded-lg backdrop-blur-sm hover:bg-white/10 focus:border-emerald-500 outline-none transition-all duration-200 min-h-[80px] resize-none"
                 rows={3}
                 disabled={isSubmitting}
                 maxLength={1000}
@@ -276,7 +276,7 @@ export default function HomePage() {
             <div className="pt-2">
               <Button
                 type="submit"
-                className="w-full bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white h-12 rounded-lg font-medium shadow-lg hover:shadow-xl transition-all duration-200 disabled:opacity-50"
+                className="w-full bg-gradient-to-r from-emerald-600 to-emerald-800 hover:from-emerald-800 hover:to-emerald-900 text-white h-12 rounded-lg font-medium shadow-lg hover:shadow-xl transition-all duration-200 disabled:opacity-50"
                 disabled={isSubmitting}
               >
                 {isSubmitting ? (

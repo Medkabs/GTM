@@ -1,6 +1,7 @@
 "use client";
 
 import React from "react";
+import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import { ArrowRight } from "lucide-react";
 import "./Hero.css";
@@ -27,36 +28,29 @@ const Hero: React.FC<HeroProps> = ({ className = "", onDiscoverClick }) => {
   };
 
   return (
-     <section className="bg-black text-white py-16 min-h-screen flex items-center justify-center relative overflow-hidden">
-        {/* Background Animation */}
-        <div className="absolute inset-0 bg-gradient-to-br from-emerald-900 via-black to-emerald-900 opacity-30 animate-pulse"></div>
-       
+    <section className="bg-black text-white py-16 min-h-screen flex items-center justify-center relative overflow-hidden">
+      {/* Background Animation */}
+      <div className="absolute inset-0 bg-gradient-to-br from-[#188048] via-black to-[#188048] opacity-30 animate-pulse"></div>
 
-        <div className="text-center relative z-10">
-          <div className="mb-12">
-            {/* Animated Logo GIF */}
-            
-          </div>
-          <h1 className="hero__title">
-              GEM 
-             Talent {" "} <br />
-              <span className="hero__title-accent">Management</span>
-            </h1>
-
-             <p className="hero__description">
-              We build relationships. .
-            </p>
-            
-             <Button
-              size="lg"
-              onClick={handleDiscoverClick}
-              className="hero__cta-button"
-            >
-              Discover More
-              <ArrowRight className="hero__cta-icon" />
-            </Button>
+      <div className="text-center relative z-10">
+        <div className="mb-12">
+          {/* Animated Logo GIF */}
+          
         </div>
-      </section>
+        <div className="hero__title-image">
+          <Image src="/GTM.png" alt="GEM Talent Management" width={560} height={160} />
+        </div>
+
+        <p className="mt-6 text-lg max-w-2xl mx-auto">
+          We build relationships.
+        </p>
+
+        <Button size="lg" onClick={handleDiscoverClick} className="mt-8 hero__cta-button">
+          Discover More
+          <ArrowRight className="hero__cta-icon" />
+        </Button>
+      </div>
+    </section>
   );
 };
 

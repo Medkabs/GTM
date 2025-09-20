@@ -136,11 +136,11 @@ export default function ModelsPage() {
       {/* Header Navigation */}
       <Header onContactClick={openContactModal} />
 
-      {/* Page Hero Section */}
-      <section className="pt-24 pb-16 bg-background">
+  {/* Page Hero Section */}
+  <section className="pt-[12rem] pb-16 bg-background">
         <div className="max-w-1280px mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <h1 className="font-serif text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6">
-            Our Talented <span className="italic text-primary">Models</span>
+            Our Talented <span className="italic text-[#188048]">Models</span>
           </h1>
           <p className="text-lg text-white/80 max-w-2xl mx-auto">
             Discover our diverse portfolio of professional models, each bringing unique talents and expertise to bring your vision to life.
