@@ -39,9 +39,9 @@ export default function AboutPage() {
             {/* Quick Stats Card */}
             <aside className="order-first lg:order-last bg-white/5 border border-white/6 rounded-xl p-6 shadow-md">
               <div className="flex items-center gap-4">
-                <div className="flex-shrink-0">
-                  <div className="w-16 h-16 rounded-full overflow-hidden ring-2 ring-white/10">
-                    <Image src="/GTM.png" alt="Founder" width={64} height={64} className="object-cover" />
+                <div className="">
+                  <div className="w-16 h-16 rounded-full  ring-2 ring-white/10">
+                    <Image src="/GTM.png" alt="Founder" width={1000} height={1000} className="object-cover" />
                   </div>
                 </div>
                 <div>

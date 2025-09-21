@@ -154,13 +154,13 @@ export default function HomePage() {
 
       <About />
       
-      <BeALight />
+      {/* <BeALight /> */}
 
       <Team />
 
       {/* <TestimonialsSection /> */}
 
-      <FAQSection />
+      {/* <FAQSection /> */}
 
       <ApplicationForm />
 

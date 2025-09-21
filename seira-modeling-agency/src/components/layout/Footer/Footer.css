@@ -1,9 +1,9 @@
 /* Footer Component Styles */
 
 .footer {
-  background-color: hsl(0, 0%, 3.9%);
+  background-color: hsl(0, 0%, 100%); /* inverted to white */
   padding: 5rem 0 2rem;
-  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  border-top: 1px solid rgba(0, 0, 0, 0.06);
 }
 
 .footer__container {
@@ -58,19 +58,19 @@
   font-family: 'Baskervville', serif;
   font-size: 1.5rem;
   font-weight: 700;
-  color: white;
+  color: black;
   margin: 0;
 }
 
 .footer__address {
-  color: rgba(255, 255, 255, 0.6);
+  color: rgba(0, 0, 0, 0.6);
   line-height: 1.6;
   margin: 0;
   font-size: 0.875rem;
 }
 
 .footer__section-title {
-  color: white;
+  color: black;
   font-weight: 600;
   margin: 0;
   font-size: 1rem;
@@ -83,7 +83,7 @@
 }
 
 .footer__link {
-  color: rgba(255, 255, 255, 0.6);
+  color: rgba(0, 0, 0, 0.6);
   text-decoration: none;
   font-size: 0.875rem;
   cursor: pointer;
@@ -97,11 +97,11 @@
 
 .footer__link:hover,
 .footer__link:focus {
-  color: white;
+  color: black;
 }
 
 .footer__link:focus {
-  outline: 2px solid hsl(229, 84%, 56%);
+  outline: 2px solid #188048;
   outline-offset: 2px;
   border-radius: 2px;
 }
@@ -124,7 +124,7 @@
 }
 
 .footer__contact-text {
-  color: rgba(255, 255, 255, 0.6);
+  color: rgba(0, 0, 0, 0.6);
   margin: 0;
   font-size: 0.875rem;
 }
@@ -134,8 +134,8 @@
   text-align: center;
   margin-bottom: 3rem;
   padding: 2rem 0;
-  border-top: 1px solid rgba(255, 255, 255, 0.1);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  border-top: 1px solid rgba(0, 0, 0, 0.06);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.06);
 }
 
 .footer__collaboration-content {
@@ -147,7 +147,7 @@
 }
 
 .footer__collaboration-text {
-  color: rgba(255, 255, 255, 0.4);
+  color: rgba(0, 0, 0, 0.4);
   font-size: 0.875rem;
   font-weight: 400;
 }
@@ -156,7 +156,7 @@
   font-family: 'Baskervville', serif;
   font-style: italic;
   font-size: 1.5rem;
-  color: rgba(255, 255, 255, 0.6);
+  color: rgba(0, 0, 0, 0.6);
   font-weight: 400;
 }
 
@@ -167,14 +167,14 @@
 }
 
 .footer__collaboration-separator {
-  color: rgba(255, 255, 255, 0.3);
+  color: rgba(0, 0, 0, 0.3);
   font-size: 1rem;
   font-weight: 300;
 }
 
 /* Bottom Bar */
 .footer__bottom {
-  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  border-top: 1px solid rgba(0, 0, 0, 0.06);
   padding-top: 2rem;
 }
 
@@ -196,7 +196,7 @@
 
 .footer__copyright,
 .footer__rights {
-  color: rgba(255, 255, 255, 0.4);
+  color: rgba(0, 0, 0, 0.4);
   font-size: 0.875rem;
   margin: 0;
 }
@@ -223,12 +223,12 @@
 /* High contrast mode support */
 @media (prefers-contrast: high) {
   .footer__newsletter-input {
-    border-color: white;
-    background-color: rgba(0, 0, 0, 0.8);
+    border-color: black;
+    background-color: rgba(255, 255, 255, 0.9);
   }
 
   .footer__newsletter-button {
-    border: 1px solid white;
+    border: 1px solid black;
   }
 
   .footer__link {
@@ -236,7 +236,7 @@
   }
 
   .footer__link:focus {
-    border-bottom-color: white;
+    border-bottom-color: black;
   }
 }
 
@@ -252,7 +252,7 @@
   height: 16px;
   margin: auto;
   border: 2px solid transparent;
-  border-top-color: white;
+  border-top-color: black; /* inverted spinner */
   border-radius: 50%;
   animation: spin 1s linear infinite;
 }
@@ -273,7 +273,7 @@
 
 /* Focus management for keyboard navigation */
 .footer__section:focus-within {
-  outline: 2px solid hsl(229, 84%, 56%);
+  outline: 2px solid #188048;
   outline-offset: 4px;
   border-radius: 8px;
 }
