@@ -1,101 +1,72 @@
 "use client";
 
-import React, { useEffect, useRef } from "react";
+import React, { useEffect } from "react";
+import { gsap } from "gsap";
 import "./BeALight.css";
 
 const BeALight: React.FC = () => {
-  const headingRef = useRef<HTMLHeadingElement>(null);
-
   useEffect(() => {
-    if (!headingRef.current) return;
+    const tl = gsap.timeline({
+      repeat: -1,
+      repeatDelay: 2.5,
+      defaults: { ease: "power2.inOut" },
+    });
 
-    const resolver = {
-      resolve: function (options: any, callback?: () => void) {
-        const resolveString = options.resolveString || options.element.getAttribute("data-target-resolver");
-        const combinedOptions = { ...options, resolveString };
+    tl.set(".be-a-light-section .word.in, .be-a-light-section .word.too, .be-a-light-section .word.deep", { opacity: 0 });
 
-        function getRandomInteger(min: number, max: number) {
-          return Math.floor(Math.random() * (max - min + 1)) + min;
-        }
+    // Animate lines
+    tl.fromTo(
+      ".be-a-light-section .left-side",
+      { height: 0 },
+      { duration: 2.3, height: "100%", ease: "power3.in" },
+      0
+    );
 
-        function randomCharacter(characters: string[]) {
-          return characters[getRandomInteger(0, characters.length - 1)];
-        }
+    tl.fromTo(
+      ".be-a-light-section .bottom-side",
+      { width: 0 },
+      { duration: 2.3, width: "100%", ease: "power3.out" },
+      2.3
+    );
 
-        function doRandomiserEffect(options: any, callback?: () => void) {
-          let { iterations, partialString, element, characters, timeout } = options;
+    // Words
+    tl.fromTo(".be-a-light-section .in", { opacity: 0 }, { duration: 1.3, opacity: 1, stagger: 0.06 }, "-=1");
+    tl.fromTo(".be-a-light-section .too", { opacity: 0 }, { duration: 1.3, opacity: 1, stagger: 0.06 }, "-=0.6");
+    tl.fromTo(".be-a-light-section .deep", { opacity: 0 }, { duration: 1.3, opacity: 1, stagger: 0.06 }, "-=0.6");
 
-          setTimeout(() => {
-            if (iterations >= 0) {
-              const nextOptions = { ...options, iterations: iterations - 1 };
-
-              if (iterations === 0) {
-                element.textContent = partialString;
-              } else {
-                element.textContent =
-                  partialString.substring(0, partialString.length - 1) +
-                  randomCharacter(characters);
-              }
-
-              doRandomiserEffect(nextOptions, callback);
-            } else if (callback) {
-              callback();
-            }
-          }, timeout);
-        }
-
-        function doResolverEffect(options: any, callback?: () => void) {
-          const { resolveString, characters, offset } = options;
-          const partialString = resolveString.substring(0, offset);
-          const combinedOptions = { ...options, partialString };
-
-          doRandomiserEffect(combinedOptions, () => {
-            const nextOptions = { ...options, offset: offset + 1 };
-            if (offset <= resolveString.length) {
-              doResolverEffect(nextOptions, callback);
-            } else if (callback) callback();
-          });
-        }
-
-        doResolverEffect(combinedOptions, callback);
+    // Rotate container
+    tl.to(
+      ".be-a-light-section .text",
+      {
+        transform: "rotate(-20deg) skew(0deg, 0deg)",
+        duration: 1.5,
+        ease: "slow(0.2, 0.4, false)",
       },
+      "+=1"
+    );
+
+    // Fade out
+    tl.to(".be-a-light-section .text", { opacity: 0, duration: 0.6, stagger: 0.06 }, "+=2");
+
+    return () => {
+      tl.kill();
     };
-
-    const strings = [
-      "BE A LIGHT",
-      "FOR GOD",
-      "BE A LIGHT",
-    ];
-
-    let counter = 0;
-
-    const options = {
-      offset: 0,
-      timeout: 30,
-      iterations: 10,
-      characters: [
-        "a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","q","r","s","t","u","v","x","y","z","#","%","&","-","+","_","?","/","\\","="
-      ],
-      resolveString: strings[counter],
-      element: headingRef.current,
-    };
-
-    function callback() {
-      setTimeout(() => {
-        counter++;
-        if (counter >= strings.length) counter = 0;
-        const nextOptions = { ...options, resolveString: strings[counter], offset: 0 };
-        resolver.resolve(nextOptions, callback);
-      }, 1000);
-    }
-
-    resolver.resolve(options, callback);
   }, []);
 
   return (
-    <div className="container">
-      <h1 className="heading" ref={headingRef} data-target-resolver></h1>
-    </div>
+    <section className="be-a-light-section">
+      <div className="container">
+        {[1, 2, 3, 4, 5, 6, 7].map((val) => (
+          <div key={val} className={`text text${val}`}>
+            <p className="word in">BE</p>
+            <p className="word too">A</p>
+            <p className="word deep">LIGHT</p>
+            <span className="left-side"></span>
+            <span className="bottom-side"></span>
+          </div>
+        ))}
+      </div>
+    </section>
   );
 };
 

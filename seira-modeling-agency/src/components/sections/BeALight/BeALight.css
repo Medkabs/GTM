@@ -1,64 +1,66 @@
-/* Reset and box sizing */
-*,
-*:after,
-*:before {
-  box-sizing: border-box;
-}
-
-html,
-body {
-  height: 100%;
-  margin: 0;
-  font-family: 'Unica One', sans-serif;
-  background: #0f0e0e;
-}
-
-/* Container centers content and takes full viewport */
-.container {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  height: 100vh; /* full viewport height */
+.be-a-light-section {
   width: 100%;
-  padding: 2rem;
+  height: 100vh;
+  background: hsl(285, 86%, 4%);
+  overflow: hidden;
   position: relative;
-  text-align: center;
 }
 
-/* Heading text before reveal */
-.heading {
-  color: #fff;
-  font-size: 10vw; /* responsive large text */
-  font-weight: 900;
-  text-transform: uppercase;
-  letter-spacing: 0.1em;
+.be-a-light-section .container {
   position: relative;
-  z-index: 1;
-  display: inline-block;
-  transition: all 0.3s ease;
+  width: 100%;
+  height: 100%;
 }
 
-/* 3D effect applied after text is fully revealed */
-.heading.reveal-complete {
-  color: #e91e63;
-  text-shadow:
-    -0.035em 0.035em 0 #c2185b,
-    -0.03em 0.03em 0 #d81b60,
-    -0.025em 0.025em 0 #e91e63,
-    -0.02em 0.02em 0 #ec407a,
-    -0.015em 0.015em 0 #f06292,
-    -0.01em 0.01em 0 #f48fb1,
-    -0.005em 0.005em 0 #f8bbd0,
-    0 0 0 #fff;
-  transform: translateZ(0); /* for GPU acceleration */
-  perspective: 1000px;
-}
-
-/* Optional subtle container overlay */
-.container::before {
-  content: "";
+.be-a-light-section .text {
   position: absolute;
-  inset: 0;
-  background: radial-gradient(circle, rgba(0, 0, 0, 0.1) 0%, transparent 70%);
-  pointer-events: none;
+  left: calc(100vw / 4);
+  right: calc(100vw / 4);
+  transform: rotate(-45deg) skew(15deg, 15deg);
+  width: calc(500 * 0.1vmin);
+  height: calc(600 * 0.1vmin);
+  font-size: calc(160 * 0.1vmin);
+  -webkit-text-fill-color: #ffffff00;
+  -webkit-text-stroke-width: 4px;
+  -webkit-text-stroke-color: hsl(150, 93%, 29%);
+  line-height: calc(160 * 0.1vmin);
+  padding: calc(60 * 0.1vmin);
+}
+
+.be-a-light-section .left-side,
+.be-a-light-section .bottom-side {
+  position: absolute;
+  width: 0px;
+  height: 0px;
+  background: hsl(69, 94%, 42%);
+}
+
+.be-a-light-section .left-side {
+  left: 0;
+  top: 0;
+  height: calc(200 * 0.1vmin);
+  width: calc(5 * 0.1vmin);
+}
+
+.be-a-light-section .bottom-side {
+  bottom: 0;
+  left: 0;
+  width: calc(200 * 0.1vmin);
+  height: calc(5 * 0.1vmin);
+}
+
+/* Blurred layered text */
+.be-a-light-section .text1 { top: 0px; filter: blur(0.5px); }
+.be-a-light-section .text2 { top: calc(1 * 0.1vmin); filter: blur(0.5px); }
+.be-a-light-section .text3 { top: calc(10 * 0.1vmin); opacity: 1; filter: blur(1px); }
+.be-a-light-section .text4 { top: calc(20 * 0.1vmin); opacity: 0.8; filter: blur(1.5px); }
+.be-a-light-section .text5 { top: calc(30 * 0.1vmin); opacity: 0.6; filter: blur(2px); }
+.be-a-light-section .text6 { top: calc(40 * 0.1vmin); opacity: 0.4; filter: blur(2.5px); }
+.be-a-light-section .text7 { top: calc(50 * 0.1vmin); opacity: 0.2; filter: blur(3px); }
+
+/* Words default hidden */
+.be-a-light-section .word.in,
+.be-a-light-section .word.too,
+.be-a-light-section .word.deep {
+  opacity: 0;
 }
