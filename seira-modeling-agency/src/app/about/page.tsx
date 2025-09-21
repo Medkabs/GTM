@@ -41,7 +41,7 @@ export default function AboutPage() {
               <div className="flex items-center gap-4">
                 <div className="flex-shrink-0">
                   <div className="w-16 h-16 rounded-full overflow-hidden ring-2 ring-white/10">
-                    <Image src="/Michael.png" alt="Founder" width={64} height={64} className="object-cover" />
+                    <Image src="/GTM.png" alt="Founder" width={64} height={64} className="object-cover" />
                   </div>
                 </div>
                 <div>
@@ -75,7 +75,7 @@ export default function AboutPage() {
           <div className="bg-white/3 border border-white/6 rounded-2xl p-8 lg:p-12 shadow-lg grid grid-cols-1 lg:grid-cols-3 gap-8 items-start">
             <div className="flex flex-col items-center lg:items-start gap-6">
               <div className="w-44 h-44 rounded-xl overflow-hidden ring-4 ring-[#188048] shadow-xl">
-                <Image src="/Nisani.png" alt="Team lead" width={176} height={176} className="object-cover" />
+                <Image src="/Gail_Harry.png" alt="Team lead" width={176} height={176} className="object-cover" />
               </div>
               <div className="text-center lg:text-left">
                 <div className="text-xl font-semibold">Gail H.</div>
