@@ -7,14 +7,14 @@
   align-items: center;
   justify-content: center;
   overflow: hidden;
-  background-color: hsl(0, 0%, 3.9%);
+  background-color: hwb(0 98% 2%);
   color: #fff;
 }
 
 .hero__background {
   position: absolute;
   inset: 0;
-  background-color: hsl(0, 0%, 3.9%);
+  background-color: hwb(0 98% 2%);
   z-index: 0;
   background-size: cover;
   background-position: center;
@@ -29,6 +29,18 @@
   z-index: 1;
   animation: hero-pulse 6s ease-in-out infinite;
 }
+/* Container and content */
+.hero__title-image{
+  /* base glow using multiple drop-shadows */
+  --glow-color: #e7bd02;
+  filter: 
+    drop-shadow(0 0 5px var(--glow-color)) /* small */
+    drop-shadow(0 0 15px rgba(253, 215, 2, 0.9)) /* medium */
+    drop-shadow(0 0 35px #f6dd02f0); /* large */
+  /* animate by slightly scaling the intensity of a pseudo shadow via CSS animation */
+  animation: hero-image-glow 3.6s ease-in-out infinite;
+}
+
 
 @keyframes hero-pulse {
   0% { transform: scale(1); opacity: 0.28; }
@@ -37,23 +49,13 @@
 }
 
 /* Container and content */
-.hero__title-image{
-  /* base glow using multiple drop-shadows */
-  --glow-color: #188048;
-  filter: 
-    drop-shadow(0 0 5px var(--glow-color)) /* small */
-    drop-shadow(0 0 15px rgba(24,128,72,0.9)) /* medium */
-    drop-shadow(0 0 35px rgba(24,128,72,0.75)); /* large */
-  /* animate by slightly scaling the intensity of a pseudo shadow via CSS animation */
-  animation: hero-image-glow 3.6s ease-in-out infinite;
-}
 
 @keyframes hero-image-glow {
   0% {
     filter: 
-      drop-shadow(0 0 4px rgba(24,128,72,0.6))
-      drop-shadow(0 0 12px rgba(24,128,72,0.55))
-      drop-shadow(0 0 28px rgba(24,128,72,0.45));
+      drop-shadow(0 0 4px #e3cd00f1)
+      drop-shadow(0 0 12px #e3cd00f1)
+      drop-shadow(0 0 28px #e3cd00f1);
   }
   50% {
     filter: 
@@ -63,9 +65,9 @@
   }
   100% {
     filter: 
-      drop-shadow(0 0 4px rgba(24,128,72,0.6))
-      drop-shadow(0 0 12px rgba(24,128,72,0.55))
-      drop-shadow(0 0 28px rgba(24,128,72,0.45));
+      drop-shadow(0 0 4px rgba(24,128,72,0.75))
+      drop-shadow(0 0 12px #e3cd00f1)
+      drop-shadow(0 0 28px #e3cd00f1);
   }
 }
 
@@ -115,9 +117,12 @@
   /* max-width: 560px; */
   /* width: 90%; */
   margin: 0 auto 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 .hero__title-image img {
-  width: 100%;
+  width: 50%;
   height: auto;
   display: block;
   object-fit: contain;
@@ -173,3 +178,15 @@
 
 /* Performance optimizations */
 .hero__content { contain: layout style; }
+.hero__video {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 90%;
+ 
+  object-fit: cover;
+  z-index: 0;
+  /* make video slightly transparent */
+  opacity: 1; /* adjust between 0 (fully transparent) and 1 (fully opaque) */
+
+}
