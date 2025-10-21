@@ -30,7 +30,7 @@ const Hero: React.FC<HeroProps> = ({ className = "", onDiscoverClick }) => {
   return (
     <section className="bg-black text-white py-16 min-h-screen flex items-center justify-center relative overflow-hidden">
       {/* Background Animation */}
-      <div className="absolute inset-0 bg-gradient-to-br from-[#fff] via-[#fff] to-[#fff] opacity-100 "></div>
+      <div className="absolute inset-0 bg-gradient-to-br from-[var(--backgroundColor)] via-[var(--backgroundColor)] to-[var(--backgroundColor)] opacity-100 "></div>
 
       <div className="text-center relative z-10">
         <div className="mb-12">

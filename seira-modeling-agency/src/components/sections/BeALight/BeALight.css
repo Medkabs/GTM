@@ -20,7 +20,7 @@
   width: calc(500 * 0.1vmin);
   height: calc(600 * 0.1vmin);
   font-size: calc(160 * 0.1vmin);
-  -webkit-text-fill-color: #ffffff00;
+  -webkit-text-fill-color: transparent;
   -webkit-text-stroke-width: 4px;
   -webkit-text-stroke-color: hsl(150, 93%, 29%);
   line-height: calc(160 * 0.1vmin);

@@ -2,7 +2,7 @@
 
 .models {
   padding: 5rem 0;
-  background-color: hsl(0, 0%, 3.9%);
+  background-color: var(--backgroundColor);
 }
 
 .models__container {
@@ -34,7 +34,7 @@
   font-weight: 500;
   letter-spacing: 0.1em;
   text-transform: uppercase;
-  color: rgba(255, 255, 255, 0.6);
+  color: var(--textColorWhiteTertiary);
   margin-bottom: 1rem;
   font-family: 'Inter', sans-serif;
 }
@@ -43,14 +43,14 @@
   font-family: 'Baskervville', serif;
   font-size: clamp(2.5rem, 6vw, 3.5rem);
   font-weight: 700;
-  color: white;
+  color: var(--textColorBlack);
   line-height: 1.2;
   margin: 0 0 2rem 0;
 }
 
 .models__title-accent {
   font-style: italic;
-  color: rgba(255, 255, 255, 0.9);
+  color: var(--textColorWhiteSecondary);
 }
 
 /* Filter Tabs */
@@ -70,22 +70,22 @@
   cursor: pointer;
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   border: 1px solid rgba(255, 255, 255, 0.2);
-  background: rgba(255, 255, 255, 0.05);
-  color: rgba(255, 255, 255, 0.6);
+  background: var(--backgroundColor05);
+  color: var(--textColorWhiteTertiary);
   backdrop-filter: blur(4px);
   -webkit-backdrop-filter: blur(4px);
 }
 
 .models__filter:hover {
-  color: white;
-  background: rgba(255, 255, 255, 0.1);
+  color: var(--textColorWhite);
+  background: var(--backgroundColor10);
   border-color: rgba(255, 255, 255, 0.3);
   transform: translateY(-1px);
 }
 
 .models__filter--active {
   background: #188048;
-  color: white;
+  color: var(--textColorWhite);
   border-color: #188048;
   transform: translateY(-1px);
   box-shadow: 0 4px 12px rgba(59, 73, 204, 0.3);
@@ -172,7 +172,7 @@
 }
 
 .models__name {
-  color: white;
+  color: var(--textColorWhite);
   font-weight: 600;
   font-size: 1.125rem;
   margin: 0;
@@ -186,8 +186,8 @@
 }
 
 .models__category-badge {
-  background-color: rgba(255, 255, 255, 0.1);
-  color: rgba(255, 255, 255, 0.7);
+  background-color: var(--backgroundColor10);
+  color: var(--textColorWhiteSecondary);
   border: 1px solid rgba(255, 255, 255, 0.2);
   font-size: 0.75rem;
   padding: 0.25rem 0.5rem;
@@ -196,8 +196,8 @@
 }
 
 .models__category-badge:hover {
-  background-color: rgba(255, 255, 255, 0.15);
-  color: rgba(255, 255, 255, 0.9);
+  background-color: var(--backgroundColor15);
+  color: var(--textColorWhiteSecondary);
   border-color: rgba(255, 255, 255, 0.3);
 }
 
@@ -208,7 +208,7 @@
 }
 
 .models__no-results-text {
-  color: rgba(255, 255, 255, 0.6);
+  color: var(--textColorWhiteTertiary);
   font-size: 1.125rem;
   margin: 0;
 }

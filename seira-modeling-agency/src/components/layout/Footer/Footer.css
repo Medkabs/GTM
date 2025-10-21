@@ -1,7 +1,7 @@
 /* Footer Component Styles */
 
 .footer {
-  background-color: hsl(0, 0%, 100%); /* inverted to white */
+  background-color: var(--backgroundColor); /* inverted to white */
   padding: 5rem 0 2rem;
   border-top: 1px solid rgba(0, 0, 0, 0.06);
 }
@@ -58,19 +58,19 @@
   font-family: 'Baskervville', serif;
   font-size: 1.5rem;
   font-weight: 700;
-  color: black;
+  color: var(--textColor);
   margin: 0;
 }
 
 .footer__address {
-  color: rgba(0, 0, 0, 0.6);
+  color: var(--textColorSecondary);
   line-height: 1.6;
   margin: 0;
   font-size: 0.875rem;
 }
 
 .footer__section-title {
-  color: black;
+  color: var(--textColor);
   font-weight: 600;
   margin: 0;
   font-size: 1rem;
@@ -83,7 +83,7 @@
 }
 
 .footer__link {
-  color: rgba(0, 0, 0, 0.6);
+  color: var(--textColorSecondary);
   text-decoration: none;
   font-size: 0.875rem;
   cursor: pointer;
@@ -97,7 +97,7 @@
 
 .footer__link:hover,
 .footer__link:focus {
-  color: black;
+  color: var(--textColor);
 }
 
 .footer__link:focus {
@@ -124,7 +124,7 @@
 }
 
 .footer__contact-text {
-  color: rgba(0, 0, 0, 0.6);
+  color: var(--textColorSecondary);
   margin: 0;
   font-size: 0.875rem;
 }
@@ -147,7 +147,7 @@
 }
 
 .footer__collaboration-text {
-  color: rgba(0, 0, 0, 0.4);
+  color: var(--textColorTertiary);
   font-size: 0.875rem;
   font-weight: 400;
 }
@@ -156,7 +156,7 @@
   font-family: 'Baskervville', serif;
   font-style: italic;
   font-size: 1.5rem;
-  color: rgba(0, 0, 0, 0.6);
+  color: var(--textColorSecondary);
   font-weight: 400;
 }
 
@@ -196,7 +196,7 @@
 
 .footer__copyright,
 .footer__rights {
-  color: rgba(0, 0, 0, 0.4);
+  color: var(--textColorTertiary);
   font-size: 0.875rem;
   margin: 0;
 }
@@ -224,7 +224,7 @@
 @media (prefers-contrast: high) {
   .footer__newsletter-input {
     border-color: black;
-    background-color: rgba(255, 255, 255, 0.9);
+    background-color: var(--backgroundColor);
   }
 
   .footer__newsletter-button {
