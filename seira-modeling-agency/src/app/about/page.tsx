@@ -12,11 +12,11 @@ export default function AboutPage() {
   }, []);
 
   return (
-    <main className="min-h-screen bg-background text-white">
+    <main className="min-h-screen bg-gradient-to-b from-white to-white text-black">
       <Header />
 
       {/* HERO */}
-      <section className="pt-[12rem] pb-12 bg-gradient-to-b from-black/60 to-black/40">
+      <section className="pt-[12rem] pb-12 bg-gradient-to-b from-white to-white">
         <div className="max-w-7xl mx-auto px-6 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 items-center">
             <div className="lg:col-span-2">
@@ -25,7 +25,7 @@ export default function AboutPage() {
                 <span className="block text-[#188048]">Gem Talent Management</span>
               </h1>
 
-              <p className="text-lg text-white/80 max-w-3xl leading-relaxed">
+              <p className="text-lg text-black max-w-3xl leading-relaxed">
                 GEM Talent Management is a full-service professional entertainment
                 management business. G.T.M. is comprised of a Personal Manager with a
                 team of Advisors. Through our creative energy, administrative efforts
@@ -39,9 +39,9 @@ export default function AboutPage() {
             {/* Quick Stats Card */}
             <aside className="order-first lg:order-last bg-white/5 border border-white/6 rounded-xl p-6 shadow-md">
               <div className="flex items-center gap-4">
-                <div className="flex-shrink-0">
-                  <div className="w-16 h-16 rounded-full overflow-hidden ring-2 ring-white/10">
-                    <Image src="/GTM.png" alt="Founder" width={64} height={64} className="object-cover" />
+                <div className="">
+                  <div className="w-16 h-16 rounded-full  ring-2 ring-white/10">
+                    <Image src="/GTM.png" alt="Founder" width={1000} height={1000} className="object-cover" />
                   </div>
                 </div>
                 <div>
@@ -61,7 +61,7 @@ export default function AboutPage() {
                 </div>
               </div>
 
-              <a href="#contact" className="mt-6 inline-block w-full text-center text-white bg-gradient-to-r from-[#188048] to-[#0f5030] hover:opacity-95 text-black font-semibold py-2 rounded-md">
+              <a href="#contact" className="mt-6 inline-block w-full text-center text-white bg-gradient-to-r from-[#188048] to-[#0f5030] hover:opacity-95 text-white font-semibold py-2 rounded-md">
                 Get in Touch
               </a>
             </aside>
@@ -79,14 +79,14 @@ export default function AboutPage() {
               </div>
               <div className="text-center lg:text-left">
                 <div className="text-xl font-semibold">Gail H.</div>
-                <div className="text-sm text-white/70">Founder & Managing Director</div>
+                <div className="text-sm text-black">Founder & Managing Director</div>
               </div>
             </div>
 
             <div className="lg:col-span-2">
 
               <h2 className="text-2xl font-semibold mb-4">Our philosophy</h2>
-              <p className="text-white/80 leading-relaxed mb-4">
+              <p className="text-black leading-relaxed mb-4">
                 G.T.M. is committed to the <strong className="uppercase">EMPOWERMENT</strong> of each individual artist by
                 developing healthy relationships with talented performers and business
                 organizations. Our service can afford lucrative opportunities in the
@@ -94,7 +94,7 @@ export default function AboutPage() {
                 positive and motivational life-changing experiences for all involved.
               </p>
 
-              <p className="text-white/80 leading-relaxed mb-6">
+              <p className="text-black leading-relaxed mb-6">
                 To create this, we have instituted the highest business standards,
                 ethics and moral boundaries. Connecting the talented with business
                 and making it a fair exchange for all parties involved is the
@@ -103,11 +103,11 @@ export default function AboutPage() {
 
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div className="bg-white/5 p-4 rounded-lg">
-                  <div className="text-sm text-white/70">Representative Work</div>
+                  <div className="text-sm text-black">Representative Work</div>
                   <div className="font-semibold mt-1">Campaigns, Editorials, Film</div>
                 </div>
                 <div className="bg-white/5 p-4 rounded-lg">
-                  <div className="text-sm text-white/70">Development</div>
+                  <div className="text-sm text-black">Development</div>
                   <div className="font-semibold mt-1">Workshops & Coaching</div>
                 </div>
               </div>
@@ -117,7 +117,7 @@ export default function AboutPage() {
       </section>
 
       {/* SERVICES */}
-      <section className="py-12 bg-background">
+      <section className="py-12 bg-gradient-to-b from-white to-white">
         <div className="max-w-6xl mx-auto px-6 lg:px-8">
           <h3 className="text-2xl font-semibold mb-6">Services</h3>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">

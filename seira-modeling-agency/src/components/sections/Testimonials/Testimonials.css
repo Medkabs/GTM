@@ -35,7 +35,7 @@
   font-weight: 500;
   letter-spacing: 0.1em;
   text-transform: uppercase;
-  color: rgba(255, 255, 255, 0.6);
+  color: var(--textColorWhiteTertiary);
   margin-bottom: 1rem;
   font-family: 'Inter', sans-serif;
 }
@@ -44,14 +44,14 @@
   font-family: 'Baskervville', serif;
   font-size: clamp(2.5rem, 6vw, 3.5rem);
   font-weight: 700;
-  color: white;
+  color: var(--textColorWhite);
   line-height: 1.2;
   margin: 0;
 }
 
 .testimonials__title-accent {
   font-style: italic;
-  color: rgba(255, 255, 255, 0.9);
+  color: var(--textColorWhiteSecondary);
 }
 
 /* Slideshow Container */
@@ -109,7 +109,7 @@
 }
 
 .testimonials__card {
-  background: rgba(255, 255, 255, 0.05);
+  background: var(--backgroundColor05);
   backdrop-filter: blur(8px);
   -webkit-backdrop-filter: blur(8px);
   border-radius: 12px;
@@ -142,7 +142,7 @@
 
 .testimonials__card:hover {
   border-color: rgba(255, 255, 255, 0.2);
-  background: rgba(255, 255, 255, 0.08);
+  background: var(--backgroundColor10);
   transform: translateY(-2px);
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
   z-index: 10;
@@ -157,7 +157,7 @@
 }
 
 .testimonials__text {
-  color: rgba(255, 255, 255, 0.8);
+  color: var(--textColorWhiteSecondary);
   line-height: 1.6;
   margin-bottom: auto;
   font-size: 0.875rem;
@@ -178,14 +178,14 @@
 }
 
 .testimonials__author-name {
-  color: white;
+  color: var(--textColorWhite);
   font-weight: 600;
   margin: 0;
   font-size: 0.875rem;
 }
 
 .testimonials__author-role {
-  color: rgba(255, 255, 255, 0.6);
+  color: var(--textColorWhiteTertiary);
   font-size: 0.75rem;
   margin: 0;
 }
@@ -203,13 +203,13 @@
   height: 0.5rem;
   border-radius: 50%;
   border: none;
-  background-color: rgba(255, 255, 255, 0.3);
+  background-color: var(--backgroundColor15);
   cursor: pointer;
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .testimonials__indicator:hover {
-  background-color: rgba(255, 255, 255, 0.5);
+  background-color: var(--backgroundColor90);
   transform: scale(1.2);
 }
 
