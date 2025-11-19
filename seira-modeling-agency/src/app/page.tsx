@@ -9,7 +9,7 @@ import Footer from "@/components/layout/Footer/Footer";
 
 // Section Components
 import Hero from "@/components/sections/Hero/Hero";
-import BeALight from "@/components/sections/BeALight/BeALight";
+import  BeALight from "@/components/sections/BeALight/BeALight";
 import About from "@/components/sections/About/About";
 import Team from "@/components/sections/Team/Team";
 import ApplicationForm from "@/components/sections/ApplicationForm/ApplicationForm";
@@ -154,7 +154,7 @@ export default function HomePage() {
 
       <About />
       
-      {/* <BeALight /> */}
+      <BeALight />
 
       <Team />
 
