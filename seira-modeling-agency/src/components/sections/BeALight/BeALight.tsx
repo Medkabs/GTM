@@ -1,72 +1,114 @@
-"use client";
-
-import React, { useEffect } from "react";
-import { gsap } from "gsap";
+import React, { useEffect, useRef } from "react";
 import "./BeALight.css";
+import { TweenMax, Power2 } from "gsap";
 
 const BeALight: React.FC = () => {
+  const containerRef = useRef<HTMLDivElement>(null);
+  const lastScrollY = useRef(0);
+  const inView = useRef(false);
+
   useEffect(() => {
-    const tl = gsap.timeline({
-      repeat: -1,
-      repeatDelay: 2.5,
-      defaults: { ease: "power2.inOut" },
-    });
+    const container = containerRef.current;
+    if (!container) return;
 
-    tl.set(".be-a-light-section .word.in, .be-a-light-section .word.too, .be-a-light-section .word.deep", { opacity: 0 });
+    const texts = container.querySelectorAll(".text");
+    const halfX = window.innerWidth / 2;
+    const halfY = window.innerHeight / 2;
 
-    // Animate lines
-    tl.fromTo(
-      ".be-a-light-section .left-side",
-      { height: 0 },
-      { duration: 2.3, height: "100%", ease: "power3.in" },
-      0
-    );
+    const composeText = () => {
+      texts.forEach((el, i) => {
+        TweenMax.to(el, 0.6, {
+          x: 0,
+          y: 0,
+          z: i + 8,
+          rotationX: 0,
+          rotationY: 0,
+          ease: Power2.easeOut,
+        });
+      });
+    };
 
-    tl.fromTo(
-      ".be-a-light-section .bottom-side",
-      { width: 0 },
-      { duration: 2.3, width: "100%", ease: "power3.out" },
-      2.3
-    );
+    composeText();
 
-    // Words
-    tl.fromTo(".be-a-light-section .in", { opacity: 0 }, { duration: 1.3, opacity: 1, stagger: 0.06 }, "-=1");
-    tl.fromTo(".be-a-light-section .too", { opacity: 0 }, { duration: 1.3, opacity: 1, stagger: 0.06 }, "-=0.6");
-    tl.fromTo(".be-a-light-section .deep", { opacity: 0 }, { duration: 1.3, opacity: 1, stagger: 0.06 }, "-=0.6");
-
-    // Rotate container
-    tl.to(
-      ".be-a-light-section .text",
-      {
-        transform: "rotate(-20deg) skew(0deg, 0deg)",
-        duration: 1.5,
-        ease: "slow(0.2, 0.4, false)",
+    const observer = new IntersectionObserver(
+      (entries) => {
+        const entry = entries[0];
+        inView.current = entry.isIntersecting;
+        if (!inView.current) {
+          composeText();
+        }
       },
-      "+=1"
+      { threshold: 0.5 }
     );
 
-    // Fade out
-    tl.to(".be-a-light-section .text", { opacity: 0, duration: 0.6, stagger: 0.06 }, "+=2");
+    observer.observe(container);
+
+    const handleMouse = (e: MouseEvent) => {
+      if (!inView.current) return;
+
+      texts.forEach((el, i) => {
+        TweenMax.to(el, 0.4, {
+          x: (e.clientX - halfX) * (i + 1) * 0.01,
+          y: (e.clientY - halfY) * (i + 1) * 0.01,
+        });
+      });
+    };
+
+    document.addEventListener("mousemove", handleMouse);
+
+    const handleScroll = () => {
+      if (!inView.current) return;
+
+      const rect = container.getBoundingClientRect();
+      const midpoint = rect.top + rect.height * 0.7;
+
+      // Scroll position relative to viewport top (0) downwards positive
+      // We trigger decomposing only if viewport top passes midpoint (rect.top < 0 && abs(rect.top) > rect.height/2)
+      // But let's just check if midpoint is above viewport center (0 = top of viewport)
+      // Actually we check if viewport scroll is past midpoint of the section relative to document.
+
+      const viewportMidY = window.innerHeight / 2;
+
+      const currentScroll = window.scrollY;
+      const scrollingDown = currentScroll > lastScrollY.current;
+      lastScrollY.current = currentScroll;
+
+      // Trigger decompose only if midpoint of section is above center of viewport
+      if (midpoint < viewportMidY && scrollingDown) {
+        texts.forEach((el, i) => {
+          TweenMax.to(el, 0.8, {
+            x: (i + 1) * 8,
+            y: (i + 1) * 8,
+            z: (i + 8) + (i + 1) * 30,
+            rotationX: 8,
+            rotationY: 8,
+            ease: Power2.easeOut,
+          });
+        });
+      } else {
+        composeText();
+      }
+    };
+
+    window.addEventListener("scroll", handleScroll);
 
     return () => {
-      tl.kill();
+      document.removeEventListener("mousemove", handleMouse);
+      window.removeEventListener("scroll", handleScroll);
+      observer.disconnect();
     };
   }, []);
 
   return (
-    <section className="be-a-light-section">
-      <div className="container">
-        {[1, 2, 3, 4, 5, 6, 7].map((val) => (
-          <div key={val} className={`text text${val}`}>
-            <p className="word in">BE</p>
-            <p className="word too">A</p>
-            <p className="word deep">LIGHT</p>
-            <span className="left-side"></span>
-            <span className="bottom-side"></span>
+    <div className="effect-container" ref={containerRef}>
+      <div className="wrap">
+        {Array.from({ length: 10 }).map((_, i) => (
+          <div key={i} className="text">
+            Be A Light
           </div>
         ))}
       </div>
-    </section>
+    </div>
   );
 };
 
