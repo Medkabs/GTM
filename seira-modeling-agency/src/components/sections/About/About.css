@@ -49,33 +49,38 @@
 
 .about__subtitle {
   font-size: 0.875rem;
-  font-weight: 500;
+  font-weight: 600;
   letter-spacing: 0.1em;
   text-transform: uppercase;
   color: var(--textColorSecondary); /* inverted to dark */
   margin-bottom: 1rem;
-  font-family: 'Inter', sans-serif;
+  font-family: 'Baskervville', serif;
 }
 
 .about__title {
   font-family: 'Baskervville', serif;
   font-size: clamp(2rem, 5vw, 3rem);
   font-weight: 700;
-  color: var(--textColor); /* inverted */
+  color: black;
   line-height: 1.2;
   margin-bottom: 1.5rem;
 }
-
+.about__title .highlight {
+  color: var(--textColor); /* or your preferred highlight color */
+}
 .about__description {
   color: var(--textColorSecondary);
-  font-size: 1.125rem;
+  font-size: 1.5rem;
   line-height: 1.7;
   margin-bottom: 2rem;
   max-width: 42rem;
+  color: black;
+  font-weight: 550;
+  font-family: 'Baskervville', serif;
 }
 
 .about__cta-button {
-  background-color: hsl(229, 84%, 56%);
+  background-color: hsl(134, 69%, 34%);
   color: white;
   border: none;
   padding: 0.75rem 1.5rem;

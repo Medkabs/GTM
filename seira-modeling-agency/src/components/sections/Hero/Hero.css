@@ -132,15 +132,18 @@
 
 .hero__description {
   color: rgba(255, 255, 255, 0.8);
-  font-size: 1.125rem;
+  font-size: 2.225rem;
   line-height: 1.6;
   margin-bottom: 2rem;
   max-width: 32rem;
   margin-left: auto;
   margin-right: auto;
+  font-weight: 500;
+  font-family: 'Inter', sans-serif;
 }
 @media (min-width: 768px) {
-  .hero__description { font-size: 1.25rem; }
+  .hero__description { font-size: 2.25rem; }
+  
 }
 
 .hero__cta-button {
@@ -191,4 +194,45 @@
   /* make video slightly transparent */
   opacity: 1; /* adjust between 0 (fully transparent) and 1 (fully opaque) */
 
+}
+.hero {
+  position: relative;
+  background-color: white;
+  overflow: hidden;
+}
+
+.emerald-wave-container {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  overflow: hidden;
+  line-height: 0;
+  z-index: 0;
+  height: 100px; /* height of wave */
+}
+
+/* The wave SVG stretches to full width and height */
+.emerald-wave {
+  display: block;
+  width: 100%;
+  height: 150%;
+  animation: strobeGlow 3s ease-in-out infinite alternate;
+  transform-origin: center bottom;
+}
+
+/* Strobe animation: pulses the fill opacity and scale a bit */
+@keyframes strobeGlow {
+  0% {
+    fill-opacity: 0.6;
+    transform: scaleX(1) scaleY(1);
+  }
+  50% {
+    fill-opacity: 1;
+    transform: scaleX(1.05) scaleY(1.1);
+  }
+  100% {
+    fill-opacity: 0.6;
+    transform: scaleX(1) scaleY(1);
+  }
 }

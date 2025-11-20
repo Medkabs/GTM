@@ -140,11 +140,11 @@ const About: React.FC<AboutProps> = ({ className = "" }) => {
           <div className="about__text-content">
             <div className="about__subtitle">DISCOVER</div>
             <h2 className="about__title">
-              Seira is an exciting new modeling agency based in tropical Bali, Indonesia.
+            <span className="highlight">GEM Talent Management</span> is a full-service professional entertainment management agency
             </h2>
             <p className="about__description">
-              We build relationships. Despite the avalanche of digital connections,
-              We feel businesses are not making the connections that truly matter.
+              We shift the focus from simple entertainment consumption to meaningful engagement.
+              We handle the business of entertainment so that you can remain wholly dedicated to the art of it.
             </p>
             <Button
               onClick={() => scrollToSection("models")}
