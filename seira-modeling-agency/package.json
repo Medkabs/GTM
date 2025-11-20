@@ -26,6 +26,7 @@
     "gsap": "^3.13.0",
     "lucide-react": "^0.475.0",
     "next": "^15.3.2",
+    "pnltri": "^2.1.1",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "react-player": "^3.3.3",
@@ -33,7 +34,9 @@
     "same-runtime": "^0.0.1",
     "tailwind-merge": "^3.3.0",
     "tailwindcss-animate": "^1.0.7",
-    "three": "^0.180.0"
+    "three": "^0.180.0",
+    "three-bas": "^3.0.0",
+    "three-stdlib": "^2.36.0"
   },
   "devDependencies": {
     "@biomejs/biome": "1.9.4",
